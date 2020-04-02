@@ -1,4 +1,5 @@
-﻿using System;
+﻿using methods.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace methods
             //próba rzutowania typu
             double x = 10;
             float y = 10f;
-           // Add(x, y); // cannot convert doble and float to int
+            //Add(x, y); // cannot convert doble and float to int
             int t = 1;
             int u = 1;
             Multi(t, u); // nie jawnie rzutuje inta na inny typ
@@ -27,9 +28,13 @@ namespace methods
             (retValue1, retValue2) = Devide(11, 2);
 
             //Testy
-            CalculateSalary.Start();
+            //CalculateSalary.Start();
 
             ShowResult(retValue1, retValue2);
+
+            //rekurencja
+            Console.WriteLine(Game.Play("Tomas"));
+
             Console.ReadKey();
         }
 
