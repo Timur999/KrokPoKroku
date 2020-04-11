@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calclator.cs" />
     <Compile Include="CalculateSalary.cs" />
+    <Compile Include="Model\Character.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\Result.cs" />
+    <Compile Include="Profesions\Knight.cs" />
+    <Compile Include="Profesions\Paladin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
