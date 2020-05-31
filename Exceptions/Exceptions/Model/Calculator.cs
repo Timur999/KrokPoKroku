@@ -55,7 +55,7 @@ namespace Exceptions.Model
                 }
                 Console.WriteLine(result.ToString());
             }
-            catch (Exception Ex) when (catchError == true)
+            catch (Exception Ex) when (catchError == true) 
             {
                 //Note: Filtry wyjątków. Obsługa wyjątków tylko gdy catchError = true
                 Console.WriteLine("Filtry wyjątków. Obsługa wyjątków tylko gdy catchError = true");
@@ -135,7 +135,7 @@ namespace Exceptions.Model
             }
 
             Console.WriteLine("This instruction will only executed if FormatException, DivideByZeroException occurs or no exception occurs.");
-            //Note: W przypadku gdy wystąpi wyjątek i nie bedzie to FormatException lub DivideByZeroException nie wyswietli się ten komunikat.
+            //Note: W przypadku gdy obsługa wykątku nie zostanie znaleziona w tej metodzie (lokalnie), komunikat sie nie wyswietli.
         }
 
         private static void InitalizeListOfResluts()
@@ -153,8 +153,9 @@ namespace Exceptions.Model
                 a = 10;
                 b = 0;
                 Console.Clear();
-                Console.WriteLine($"This instruction throw exception: 10/0 = {a/b}. But before exception will be handled, execute finally content.");
-                //Note: Najpierw wykona się blok finally a potem catch DivideByZeroException w metodzie wyżej.
+                Console.WriteLine($"Trying devided by zero DivideByZeroException occurs {a/b}. If block catch exception is locally, first block catch performs and then finally. But if you need search of the list of methods invoke to handled exc then it's perform finally first.");
+                //Note: Jeśli obsługa wyjątku znajdzie się w tej metodzie (lokalnie) to najpierw zostanie wykonany blok obsługi wyjątku (catch) a następnie blko finally.
+                // Natomiast jeśli do obsługi wyjątku będzie trzeba prześledzić listę wywołanych metod w tym przypadku blko finally zostanie wykonany jako pierwszy.
             }
             finally
             {
