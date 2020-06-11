@@ -48,7 +48,7 @@ namespace Assemblies
             travellingByTrain.Pay();
 
 
-            //klasa z przestrzeni nazw Travelling. Klasy nie mogą nazywać się jak przestrzeń nazw. Gdyby nazwać tak samo kompilator poinformuje nas 'Travelling' is a namespace but is used like a type Assemblies 
+            //klasa z przestrzeni nazw Travelling. Klasy nie mogą nazywać się jak przestrzeń nazw. Gdyby nazwać tak samo kompilator poinformuje nas 'Travelling' is a namespace but is used like a type Assemblies. 
             Travel travelling = new Travel();
             travelling.TravelOnFoot();
 
