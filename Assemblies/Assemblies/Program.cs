@@ -31,7 +31,7 @@ namespace Assemblies
 {
     class Program
     {
-        // Metoda Main jest to tzw. "Punkt wejścia programu". Musi być statyczna bo inaczej .net framework mogłby nie rozpoznac, ze jest to "Punkt wejścia programu"
+        // Metoda Main jest to tzw. "Punkt wejścia programu". Musi być statyczna bo inaczej .net framework mogłby nie rozpoznac, ze jest to "Punkt wejścia programu".
         static void Main(string[] args)
         {
             // klasy Citizen są w różnych przestrzeniach nazw. Pełne nazwy tych klas to Assemblies.Poland.Citizen. Nie musimy uzywać pełnych nazw od tego słuzy nam dyrektywa using.
