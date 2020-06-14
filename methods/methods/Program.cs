@@ -23,7 +23,7 @@ namespace methods
             double x = 10;
             float y = 10f;
             //Calclator.Add(x, y); //Cannot convert double and float to int. Próba niejawnej konwersji
-            Calclator.Add((int)x, (int)y); //Jawna konwersja na inta. double > float > int W przypadku rzutowania typu mniejszego na wiekszy, nalezy jawnie zdefiniowac typ
+            Calclator.Add((int)x, (int)y); //Jawna konwersja na inta. double > float > int. W przypadku rzutowania typu wiekszego na mniejszy, nalezy jawnie zdefiniowac typ
             int t = 1;
             int u = 1;
             Calclator.Multi(t, u); //nie jawnie rzutuje inta na inny typ. Metoda Multi przyjmuje paramerty double i float
@@ -53,7 +53,7 @@ namespace methods
             (status, character) = Game.CreateCharacter(characterPaladinType, weapon: "short bow");
             //(status, character) = Game.CreateCharacter(weapon: "short bow",characterPaladinType); // bład. sposob mieszny w tedy podajemy na poczatku wartosc zmiennej bez nazwy. jak wyrzej
 
-            //rozwiazywanie nie jasnosci w przypadku 
+            //rozwiazywanie niejasnosci w przypadku 
             //        1. static public string Play(string name, int hp = 100, int dungeonsLevel=1), 2. static public string Play(string name, int hp=100, int dungeonsLevel=1, int heroLevel=7)
             //  w takim przypadku wygrywa metoda najbardziej dopoasowana
             //  Play( name, 100, 1) ---- 1
@@ -65,7 +65,5 @@ namespace methods
 
             Console.ReadKey();
         }
-
-    
     }
 }
