@@ -52,7 +52,7 @@ namespace Classies.Model
             return distance;
         }
 
-        // Dekonstruktor służy do pobierania wartości z pól obiektu. Musi sie nazywać Deconstruct zwracac void i przyjmować outowe parametry
+        // Dekonstruktor służy do pobierania wartości pól obiektu. Musi sie nazywać Deconstruct, zwracac void i przyjmować outowe parametry
         public void Deconstruct(out int longi, out int lati)
         {
             longi = this.Longitude;
