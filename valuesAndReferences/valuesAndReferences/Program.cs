@@ -224,7 +224,7 @@ namespace valuesAndReferences
                     Console.WriteLine("o is triangle");
                     break;
             }
-            switch (o)
+            switch (o) // case i when
             {
                 case Triangle triangle when triangle.SideLength > 1000:
                     Console.WriteLine("Big triangle {0}", triangle.SideLength);
