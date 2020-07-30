@@ -1,17 +1,26 @@
-﻿// Asemblacja inaczej: wiele klas, biblioteka klas, binarna asemblacja. Na asemble składa się plik o rozszerzeniu .dll (choc scisle mowiac także plik wykonywalny .exe)
-// W srodowisku .Net Framework główną assembla która zawiera klsay System.Console i inne jak do manipulacji z bazą danych, korzystajacych usugł webowych i innych jest "mscorlib.dll"
+﻿// Asemblacja inaczej: wiele klas; biblioteka klas; binarna asemblacja. Na asemble składa się plik o rozszerzeniu .dll (choc scisle mowiac także plik wykonywalny .exe)
+// W srodowisku .Net Framework główną assembla która zawiera klsay System.Console i inne jak do manipulacji z bazą danych, korzystajacych usług webowych i innych jest "mscorlib.dll"
 // Są one instalowane w raz z Visual Studio
 
 // Note: .Net standard jest to cześć w spólna bibliotek .net framework i .net core
 
-// Propierties znajduje się plik AssemblyInfo.cs zawiera on atrybuty m.in. nazwie autora, daty utworzenia projektu, itd. Może również posiadać atrybuty zmieniające działanie programu. (do sprawdzenia w necie)
-
-// References znajdują się biblioteki/programy. Podczas kompilacji kodu C# następuje konwersja kodu na biblioteke zwanej także assemblą, której zostanie nadana unikatowa nazwa.
-
+// Pod projektem w zakładce 'Propierties' znajduje się plik AssemblyInfo.cs zawiera on atrybuty m.in. nazwie autora, daty utworzenia projektu, itd. Może również posiadać atrybuty zmieniające działanie programu. (wiecej w necie)
+// W zakładce 'References' znajdują się biblioteki/programy. Podczas kompilacji kodu C# następuje konwersja kodu na biblioteke zwanej także assemblą, której zostanie nadana unikatowa nazwa.
 // App.config plik konfiguracynjny określający działanie prrogramu np. nr wersji .net frameworku
-
 // bin i obj są tworzone podczas budowania programu i zawierają wykonywalne pliki programu oraz pewne pliki potrzebne do budowania aplikacji i jej debagowania. (w Solution Explorer-> Show All Files)
 
+// Note: Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe) 
+// CIL kompilator podczas kompilacji przekształca kod C# na pseudo-maszynowy nazywany wspólnym językiem pośredniczącym (Common Intermediate Language)
+// CLR odpowiedzialny jest za dostarczenie/utworzenie wirualnego srodowiska dla uruchomionego programu (kodu). Konwertuje instrukcje w formacie CIL na język zrozumiały dla maszyny.
+// Całe te środowisko nazywane jest 'zarządzanym środowiskiem uruchomieniowym' a programy ktore wykorzystuja ten mechanizm określane są mianem kodu zarządzanego.
+// W Windows 7 możliwe było tworzenie niezarządzalnych aplikacji określane są mianem kodu natywnego. Owe aplikacje do działania wykorzystywały interfejs API z podsystemy Win32 (API udostępnia bezposrednio rózne funkcje systemu Windows).
+// .Net Framework zezwala na umieszczenie kodu natywnego w aplikacji zarządzanych i odwrotnie lecz nie jest to podobno proste. Kod natywny to: Fortran, C, C++
+// W późniejszych systemach Windows zaimplementowano alternatywe do Win32. Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT, który korzysta z API Win32 oraz innych interfejsów API systemu Windows.
+// WinRT zapewnia wieloplatformowość. Aplikacje Uniwersal Windows Platform (UWP) wykorzystuje WinRT do działania. W Windows 10 kod zarządzany (aplikacje zarządzane. nazwa własna) beda korzystac z API WinRT.
+// WinRT głownym zadaniem jest uproszczenie zintegrowania w jedną aplikacje składników (bibliotek) napisanych w różnych jezykach programowania.
+// To ma swoją cene gdyż języki posiadają pewne różnice np. w C++ struktury nie zawierają metod. Jeśli wiec bede pisał biblioteke, która zostanie umieszczona w C++ koniecznie bedzię usuniecie metod lub przerobienie jej na klase.
+// To samo tyczy sie pol statycznych oraz identyfikatora dostepności, wszystkie pola musza nie mogą byc prywatne w strukturze. Wszystkie pola muszą zawierać wartościowych (podstawowych/prymitywnych) typów danych lub stringa.
+// Srodowisko WinRT nakłada jeszcze kilka innych restrykcji co to klas i struktur tworzonych w jezyku C# aby mogły zostać bezpiecznie użyte w kodzie natywnym. Wiecej o tym w rozdziale 12.
 
 
 // dyrektywa using dodaje (elementy z ) przestrzeni nazw do zasięgu (scope) z jednej lub z wielu assemblies

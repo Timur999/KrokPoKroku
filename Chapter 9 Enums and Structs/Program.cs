@@ -98,6 +98,20 @@ namespace Chapter_9_Enums_and_Structs
             // Są to odpowiednio aliasami do następujących struktur: System.Boolean, System.Byte, System.Int16, System.Int32, System.Int64, System.Single, System.Double, System.Decimal
             StructsStaticMethodes();
             MyStruct();
+
+
+            // Note: Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe) 
+            // CIL kompilator podczas kompilacji przekształca kod C# na pseudo-maszynowy nazywany wspólnym językiem pośredniczącym (Common Intermediate Language)
+            // CLR odpowiedzialny jest za dostarczenie/utworzenie wirualnego srodowiska dla uruchomionego programu (kodu). Konwertuje instrukcje w formacie CIL na język zrozumiały dla maszyny.
+            // Całe te środowisko nazywane jest 'zarządzanym środowiskiem uruchomieniowym' a programy ktore wykorzystuja ten mechanizm określane są mianem kodu zarządzanego.
+            // W Windows 7 możliwe było tworzenie niezarządzalnych aplikacji określane są mianem kodu natywnego. Owe aplikacje do działania wykorzystywały interfejs API z podsystemy Win32 (API udostępnia bezposrednio rózne funkcje systemu Windows).
+            // .Net Framework zezwala na umieszczenie kodu natywnego w aplikacji zarządzanych i odwrotnie lecz nie jest to podobno proste. Kod natywny to: Fortran, C, C++
+            // W późniejszych systemach Windows zaimplementowano alternatywe do Win32. Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT, który korzysta z API Win32 oraz innych interfejsów API systemu Windows.
+            // WinRT zapewnia wieloplatformowość. Aplikacje Uniwersal Windows Platform (UWP) wykorzystuje WinRT do działania. W Windows 10 kod zarządzany (aplikacje zarządzane. nazwa własna) beda korzystac z API WinRT.
+            // WinRT głownym zadaniem jest uproszczenie zintegrowania w jedną aplikacje składników (bibliotek) napisanych w różnych jezykach programowania.
+            // To ma swoją cene gdyż języki posiadają pewne różnice np. w C++ struktury nie zawierają metod. Jeśli wiec bede pisał biblioteke, która zostanie umieszczona w C++ koniecznie bedzię usuniecie metod lub przerobienie jej na klase.
+            // To samo tyczy sie pol statycznych oraz identyfikatora dostepności, wszystkie pola musza nie mogą byc prywatne w strukturze. Wszystkie pola muszą zawierać wartościowych (podstawowych/prymitywnych) typów danych lub stringa.
+            // Srodowisko WinRT nakłada jeszcze kilka innych restrykcji co to klas i struktur tworzonych w jezyku C# aby mogły zostać bezpiecznie użyte w kodzie natywnym. Wiecej o tym w rozdziale 12.
         }
 
         public static void StructsStaticMethodes()
