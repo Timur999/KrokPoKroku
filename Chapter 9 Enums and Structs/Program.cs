@@ -5,11 +5,12 @@ namespace Chapter_9_Enums_and_Structs
     class Program
     {
         // Język C# posiada 2 rodzaje 'Wartościowych' typów danych: Wyliczeniowy (enum) i Strukture (Struct)
-        // Jeśli enum (typ wyliczeniowy) jest wartościowym typem danych to zawiera wartość na stosie.
-        // Struktyry również przechowuja wartośći na stercie. Gdy klasa jet mała lepiej jest uzyć strukture, gdyż zarządzanie pamięcią na stercie jest to dodatkowy narzut operacji
+        // Enum (typ wyliczeniowy) jest wartościowym typem danych to zawiera wartość na stosie.
+        // Struktyry również przechowuja wartośći na stercie. Gdy klasa jet mała lepiej jest uzyć strukture, gdyż zarządzanie pamięcią na stercie jest to dodatkowy narzutem operacji do wykonania
         public enum Seasons
         {
-            // Domyślnie wartości zmiennej wyliczeniowej są ponumerowane zaczynajac od zera '0'. Wartości enuma nazywamy 'literałami'
+            // Domyślnie wartości zmiennej wyliczeniowej są ponumerowane zaczynajac od zera '0'.
+            // Wartości enuma nazywamy 'literałami' wyliczeniowymi.
             // Literały są reprezentowane przez liczby
             Spring, Summer, Autumn, Winter
         }
@@ -23,7 +24,7 @@ namespace Chapter_9_Enums_and_Structs
         // Wybór typu danych reprezentujący wartośc enuma (Literał).
         // Tylko typy całkowitoliczbowe mogą zostać do tego uzyte. Takie jak: 'byte', 'sbyte', 'short', 'ushort', 'int', 'uint', 'long', 'ulong'.
         // short czy byte zajmuje mniej miejsca w pamięci niż int. 
-        // Literały będą reprezentowane przez wartości danego typu danych więc nie mogą przekraczać dopuszczalnego zakresu typu. np. dla byte od '0 do 255'
+        // Każdy Literał ma przypisaną wartość liczbową, a więc ilość literałów w enumie nie może nie może przekraczać dopuszczalnego zakresu danego typu, np. dla byte taki zakres jest od '0 do 255'
         public enum Color : short
         {
             green, lawngreen = green, limegreen = green, red, blue
@@ -33,9 +34,7 @@ namespace Chapter_9_Enums_and_Structs
         {
             AboutEnum();
             AboutStructs();
-
             MyStruct();
-
 
             Console.ReadKey();
         }
@@ -73,14 +72,15 @@ namespace Chapter_9_Enums_and_Structs
             Seasons season = Seasons.Spring;
             season++;
             Console.WriteLine(season);
-            // season += Seasons.Spring; // BAD
-            // season += (int)Seasons.Spring; // GOOD
             --season;
             season += 2;
             season += 100;
             Console.WriteLine(season); // zostanie wyswielona poprostu liczba, gdyż nie ma takiej pory roku
             bool isSummer = season == Seasons.Summer;
             Console.WriteLine(isSummer);
+
+            // season += Seasons.Spring; // BAD
+            // season += (int)Seasons.Spring; // GOOD
         }
 
         public static void RepresentationOfTheEnumsValue()
@@ -100,8 +100,10 @@ namespace Chapter_9_Enums_and_Structs
             MyStruct();
 
 
+            // Wskazówki odnośnie przenoszenia/integracji aplikacji C# (kod zarządzany) z/do aplikacji napisanej w C++ (kod natywny)
+
             // Note: Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe) 
-            // CIL kompilator podczas kompilacji przekształca kod C# na pseudo-maszynowy nazywany wspólnym językiem pośredniczącym (Common Intermediate Language)
+            // CIL kompilator podczas kompilacji przekształca kod C# na pseudo-maszynowy kod nazywany wspólnym językiem pośredniczącym (Common Intermediate Language)
             // CLR odpowiedzialny jest za dostarczenie/utworzenie wirualnego srodowiska dla uruchomionego programu (kodu). Konwertuje instrukcje w formacie CIL na język zrozumiały dla maszyny.
             // Całe te środowisko nazywane jest 'zarządzanym środowiskiem uruchomieniowym' a programy ktore wykorzystuja ten mechanizm określane są mianem kodu zarządzanego.
             // W Windows 7 możliwe było tworzenie niezarządzalnych aplikacji określane są mianem kodu natywnego. Owe aplikacje do działania wykorzystywały interfejs API z podsystemy Win32 (API udostępnia bezposrednio rózne funkcje systemu Windows).
@@ -112,6 +114,30 @@ namespace Chapter_9_Enums_and_Structs
             // To ma swoją cene gdyż języki posiadają pewne różnice np. w C++ struktury nie zawierają metod. Jeśli wiec bede pisał biblioteke, która zostanie umieszczona w C++ koniecznie bedzię usuniecie metod lub przerobienie jej na klase.
             // To samo tyczy sie pol statycznych oraz identyfikatora dostepności, wszystkie pola musza nie mogą byc prywatne w strukturze. Wszystkie pola muszą zawierać wartościowych (podstawowych/prymitywnych) typów danych lub stringa.
             // Srodowisko WinRT nakłada jeszcze kilka innych restrykcji co to klas i struktur tworzonych w jezyku C# aby mogły zostać bezpiecznie użyte w kodzie natywnym. Wiecej o tym w rozdziale 12.
+        }
+
+        private static void CommonLanguageRuntime_CLR_AND_CommonIntermediateLanguage_CIL()
+        {
+            // Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe) 
+            // CLR (Wspólne środowisko uruchomieniowe) odpowiada za utworzenie virtual maszyny na której wykonywany bedzie kod.
+            // CIL (Common Intermediate Language - wspólny język pośredni) podczas kompilacji, kompilator przekształca kod napisany w C#, Visual Basic itp. do postaci CIL (nazywany również kodem/zbiorem instrukcji pseudo-maszynowym) 
+            // Po kompilacji taki zbiór instrukcji pseudo maszynowego zostanie zapisany do pliku wykonywalnego .exe
+            // Podczas uruchomienia programu, CLR przekonwertuje kod CLI na rzeczywiste instrukcje maszynowe. 
+            // Cały ten proces konwersji kodu do CLI i w CLR do postaci maszynowej nazywany jest "zarządzalnym środowiskiem uruchomieniowym", a programy napisany w tym standarcie "kodem zarządzanym"
+            // W Windows 7 i wcześniejszych możliwe było również tworzenie niezarządzanech aplikacji nazywane "kodem natywnym".
+        }
+
+        private static void WinRT_AND_APIWin32()
+        {
+            // Niezarządzane aplikacje oparte są o wykorzystywanie fukcji oferowanych przez API podsystemy Win32.(w aplikacjach zarządzanych CLR również może korzystac z API Win32 jednak jest to całkowicie pernamętne dla programisty. 
+            // (Chyba trzeba poprostu dodać odpowiednią bibliotekę))
+            // Systemach nowszych od Win7 zaimplementowano Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT oferującą warstę opartą o API podsystemu Win32 a także kilku innych interfejsów API systemu Windows.
+            // WinRT zapewnia wieloplatformowość od telefony po serwery.
+            // W Win10 CLR bedzie korzystać z srodowiska WinRT zamiast Win32.
+            // Tworząc aplikacje Universal Windows Platform (UWP), program bedzie korzystał z funkcji oferowanych przez API WinRT
+            // Głownym zadaniem WinRT jest uproszczenie zintegrowania w jedną aplikacje składników (bibliotek) napisanych w różnych jezykach programowania.
+
+            // Info: Dzięki specjalnych technologii pośredniczących możliwe jest umieszczanie kodu zarządzanego w aplikacjach niezarządzanych
         }
 
         public static void StructsStaticMethodes()
@@ -148,11 +174,11 @@ namespace Chapter_9_Enums_and_Structs
 
         public static void MyStruct()
         {
-            // wlasna struktura
+            // Moja struktura
             // Na wlasnych strukturach nie działąją operatory równości '==' '!=' można je przeciążyć.
             Time time = new Time(12, 9, 59); // różnice miedzy struktura a klasą zostały opisane w strukturze Time. 
 
-            // Ponieważ struktura jest zmienna wartościową nie trzeba jej inicjalizować podczas deklaracji. Próba uzycie skonczy się błędem kompilacji.
+            // Ponieważ struktura jest zmienną wartościową nie trzeba jej inicjalizować podczas deklaracji. Próba uzycia skonczy się błędem kompilacji.
             Date Holiday;
             int a;
             //int b = a; // blad kompilacji
@@ -169,7 +195,7 @@ namespace Chapter_9_Enums_and_Structs
 
         public static void StringStaticMethods()
         {
-            // WAZNE: string nie jest struktura tylko klasą
+            // WAZNE: string nie jest struktura tylko klasą. Dlatego posiada więcej metod.
 
             string[] fruits = new string[] { "apple", "peach", "banana", "currants", "apricot", "tangerine" };
             string fruit = "strawberry";
