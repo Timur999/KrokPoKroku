@@ -5,13 +5,12 @@ namespace Chapter_9_Enums_and_Structs
     class Program
     {
         // Język C# posiada 2 rodzaje 'Wartościowych' typów danych: Wyliczeniowy (enum) i Strukture (Struct)
-        // Enum (typ wyliczeniowy) jest wartościowym typem danych to zawiera wartość na stosie.
-        // Struktyry również przechowuja wartośći na stercie. Gdy klasa jet mała lepiej jest uzyć strukture, gdyż zarządzanie pamięcią na stercie jest to dodatkowy narzutem operacji do wykonania
+        // Enum (typ wyliczeniowy) jest wartościowym typem danych, zawiera wartość na stosie.
+        // Struktyry również przechowuja wartośći na stosie. Gdy klasa jet mała lepiej jest uzyć strukture, gdyż zarządzanie pamięcią na stercie jest to dodatkowy narzutem operacji do wykonania
         public enum Seasons
         {
-            // Domyślnie wartości zmiennej wyliczeniowej są ponumerowane zaczynajac od zera '0'.
             // Wartości enuma nazywamy 'literałami' wyliczeniowymi.
-            // Literały są reprezentowane przez liczby
+            // Literały są reprezentowane przez liczby całkowite domyślnie zaczynając od zera. Może być reprezentowany przez każdy typ danych całkowitoliczbowego. Należy określic typ po ':'
             Spring, Summer, Autumn, Winter
         }
 
@@ -21,10 +20,9 @@ namespace Chapter_9_Enums_and_Structs
             Spring, Summer, Fall, Autum = Fall, Winter
         }
 
-        // Wybór typu danych reprezentujący wartośc enuma (Literał).
         // Tylko typy całkowitoliczbowe mogą zostać do tego uzyte. Takie jak: 'byte', 'sbyte', 'short', 'ushort', 'int', 'uint', 'long', 'ulong'.
         // short czy byte zajmuje mniej miejsca w pamięci niż int. 
-        // Każdy Literał ma przypisaną wartość liczbową, a więc ilość literałów w enumie nie może nie może przekraczać dopuszczalnego zakresu danego typu, np. dla byte taki zakres jest od '0 do 255'
+        //  Nie można zdefiniować więcej literałów niż zakres danego typu na to zezwala np. dla byte zakres wartości jest od '0 do 255'
         public enum Color : short
         {
             green, lawngreen = green, limegreen = green, red, blue
@@ -43,28 +41,13 @@ namespace Chapter_9_Enums_and_Structs
         {
             Seasons hotSeason = Seasons.Summer;
 
-            // Można zrobić zmienną wyliczeniową nullowalną. Jak dla wszystkich pozostałych wartościowych typów danych.
-            Seasons? season = null;
-            // season.HasValue; season.Value;
-
-            // Można przekazac referencje zmiennej jak np. int czy zmienna referencyjną
-            ChangeSeason(ref hotSeason);
-            Console.WriteLine(hotSeason); //Summer
-
             // Przekształcenie wartości typu wyliczeniowego na string
             string winter = Seasons.Winter.ToString();
             //string winter = (string)Seasons.Winter; Nie zadziała. 
+            int representativeOfEnumValue = (int)Seasons.Autumn; //Zadziała
 
-            // Jakich operatorów można uzywać na enumach? Takich samych jak na pozostalych wartościowych typach jak np. int oprócz bitwise i shift (zostaną omówione w rozdziale 16 "Indeksatory")
+            // Operacje arytmetyczne na enumach. Dostępne są wszystkie tak jak na pozostałych typach wartościowych oprócz bitwise i shift (zostaną omówione w rozdziale 16 "Indeksatory")
             AritmeticOperationOnEnum();
-
-            // Jak odczytać wartość reprezentującą dany literał zmiennej wyliczeniowej
-            RepresentationOfTheEnumsValue();
-        }
-
-        public static void ChangeSeason(ref Seasons season)
-        {
-            season = Seasons.Autumn;
         }
 
         public static void AritmeticOperationOnEnum()
@@ -75,26 +58,22 @@ namespace Chapter_9_Enums_and_Structs
             --season;
             season += 2;
             season += 100;
-            Console.WriteLine(season); // zostanie wyswielona poprostu liczba, gdyż nie ma takiej pory roku
+            Console.WriteLine(season); // zostanie wyswielona liczba, gdyż nie ma takiej pory roku
             bool isSummer = season == Seasons.Summer;
-            Console.WriteLine(isSummer);
+            if (isSummer)
+            {
+                Console.WriteLine("Ide na plaże");
+            }
 
             // season += Seasons.Spring; // BAD
             // season += (int)Seasons.Spring; // GOOD
         }
 
-        public static void RepresentationOfTheEnumsValue()
-        {
-            int springNumber = (int)AmericanSeasons.Spring; // Spring = 0
-            int autumnNumber = (int)AmericanSeasons.Autum; // autumnNumber = 2
-            autumnNumber = (int)AmericanSeasons.Fall; // autumnNumber = 2
-        }
-
         public static void AboutStructs()
         {
             // Struktury to wartościowy typ danych, przechowuje wartość na stosie. Gdy klasa jest mała lepiej uzyć struktury, gdyż obiekty klas wymagają pewnych dodatkowych operacji takich jak alkowanie pamięci na stercie (konstruktory) i dekonstruktory
-            // Struktura moze posiadać pola, metody, konstruktor. Wiecej o tym w metodzie MyStruct()
-            // Numeryczne typy danych np. bool, byte, short int, long, float, double, decimal ... to są struktury.
+            // Struktura moze posiadać pola, metody, konstruktory. Wiecej o tym w metodzie MyStruct()
+            // Numeryczne typy danych np. bool, byte, short int, long, float, double, decimal ... są to struktury. String jest klasą
             // Są to odpowiednio aliasami do następujących struktur: System.Boolean, System.Byte, System.Int16, System.Int32, System.Int64, System.Single, System.Double, System.Decimal
             StructsStaticMethodes();
             MyStruct();
@@ -124,14 +103,14 @@ namespace Chapter_9_Enums_and_Structs
             // Po kompilacji taki zbiór instrukcji pseudo maszynowego zostanie zapisany do pliku wykonywalnego .exe
             // Podczas uruchomienia programu, CLR przekonwertuje kod CLI na rzeczywiste instrukcje maszynowe. 
             // Cały ten proces konwersji kodu do CLI i w CLR do postaci maszynowej nazywany jest "zarządzalnym środowiskiem uruchomieniowym", a programy napisany w tym standarcie "kodem zarządzanym"
-            // W Windows 7 i wcześniejszych możliwe było również tworzenie niezarządzanech aplikacji nazywane "kodem natywnym".
+            // W Windows 7 i wcześniejszych windowsach możliwe było również tworzenie niezarządzanech aplikacji nazywane "kodem natywnym".
         }
 
         private static void WinRT_AND_APIWin32()
         {
             // Niezarządzane aplikacje oparte są o wykorzystywanie fukcji oferowanych przez API podsystemy Win32.(w aplikacjach zarządzanych CLR również może korzystac z API Win32 jednak jest to całkowicie pernamętne dla programisty. 
-            // (Chyba trzeba poprostu dodać odpowiednią bibliotekę))
-            // Systemach nowszych od Win7 zaimplementowano Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT oferującą warstę opartą o API podsystemu Win32 a także kilku innych interfejsów API systemu Windows.
+                                                                                                                                                                                // (Chyba trzeba poprostu dodać odpowiednią bibliotekę))
+            // Systemach nowszych od Windows 7 zaimplementowano Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT oferującą warstę opartą o API podsystemu Win32 a także o kilku innych interfejsach API systemu Windows.
             // WinRT zapewnia wieloplatformowość od telefony po serwery.
             // W Win10 CLR bedzie korzystać z srodowiska WinRT zamiast Win32.
             // Tworząc aplikacje Universal Windows Platform (UWP), program bedzie korzystał z funkcji oferowanych przez API WinRT
@@ -142,14 +121,13 @@ namespace Chapter_9_Enums_and_Structs
 
         public static void StructsStaticMethodes()
         {
-            // typy danych numerycznychc tylko 2 Parse i TryParse oraz 2 wlasciwości
-            StructToString();
+            ToString();
             StructMethodsAndProperties();
         }
 
-        public static void StructToString()
+        public static new void ToString()
         {
-            // Na wszystkich zmiennych i literałach numerycznych typów danych można użyć metode 'ToString()'
+            // Na wszystkich zmiennych jak i na literałach numerycznych typów danych (np. 99) możemy użyć metody 'ToString()'. 
             string result;
             int i = 99;
             result = i.ToString();
@@ -157,6 +135,8 @@ namespace Chapter_9_Enums_and_Structs
             float f = 19.56F;
             result = f.ToString();
             result = 10.12F.ToString();
+
+            //Note: metode ToString jest z dziedziczona z klasy object. Wszystkie typy ref i wartosciowe oraz jak widac literały mogą jej użyć. 
         }
 
         public static void StructMethodsAndProperties()
@@ -167,7 +147,7 @@ namespace Chapter_9_Enums_and_Structs
             int.Equals(number, intNumber);
             int.ReferenceEquals(number, intNumber);
 
-            // Struktua posiada 2 pola
+            // Struktura posiada 2 pola
             number = int.MaxValue;
             number = int.MinValue;
         }
@@ -178,7 +158,7 @@ namespace Chapter_9_Enums_and_Structs
             // Na wlasnych strukturach nie działąją operatory równości '==' '!=' można je przeciążyć.
             Time time = new Time(12, 9, 59); // różnice miedzy struktura a klasą zostały opisane w strukturze Time. 
 
-            // Ponieważ struktura jest zmienną wartościową nie trzeba jej inicjalizować podczas deklaracji. Próba uzycia skonczy się błędem kompilacji.
+            // Ponieważ struktura jest typem wartościowym nie trzeba jej inicjalizować podczas deklaracji. Próba uzycia skonczy się błędem kompilacji.
             Date Holiday;
             int a;
             //int b = a; // blad kompilacji
@@ -205,8 +185,8 @@ namespace Chapter_9_Enums_and_Structs
             string.Format("I like so much {0}", fruit); // zapis stringa
             // zapis stringa. Można zpisać w różnych formatach np. liczba ile miejsc po przecinku czy po kropce. Date oraz format daty w zelżności od podanego providera np. System.Globalization.CultureInfo(cultureName);
             string.Format("In the grocery you can buy: {0}, {1}, {2}, {3}, {4}, {5}", fruits[0], fruits[1], fruits[2], fruits[3], fruits[4], fruits[5]); 
-            string.Compare("A", "B"); // Jesli takie same zwraca 0, jesli roznią się tylko wielkością liter zwraca 1, jesli sa róznie -1
-            string.CompareOrdinal("A", "a"); // Uwzglednia wielkosc liter, jesli są identyczne zwróci 0 inaczej jakis minus.
+            string.Compare("string", "STRING"); // Jesli takie same zwraca 0, jesli roznią się tylko wielkością liter zwraca 1, jesli sa róznie -1
+            string.CompareOrdinal("TEXT", "text"); // Uwzglednia wielkosc liter, jesli są identyczne zwróci zero inaczej wartość ujemna.
             string temp = string.Concat("a", "g", "r");
             string.Concat<int>(new int[] { 123, 44 });
             string.Copy("ooo");

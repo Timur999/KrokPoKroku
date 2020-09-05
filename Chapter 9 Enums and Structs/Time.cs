@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Chapter_9_Enums_and_Structs
 {
 
     // Różnice miedzy struktya a klasą:
     // 1. Konstruktor Domyślny. W strukturze nie mozna zdefiniować wlasnego konstruktora domyślnego, w klasie możemy. (konstruktora domyślnego bez parametrów)
-    // 2. Inicjiowanie properties. Gdy zdefiniowaliśmy własny konstruktor to musimy w nim przypisać wartość wszystkich pól struktury. W klasie gdy któreś pole niezainicjujemy zostanie przypisjana jej wartość domyślna.
+    // 2. Inicjiowanie properties. Gdy zdefiniowaliśmy własny konstruktor to musimy w nim przypisać wartość wszystkich pól struktury. W klasie gdy któreś pole niezainicjujemy zostanie nadana jej wartość domyślna.
     // 2.1. W strukturze nie można przypisać wartość polu na poziome deklaracji. W klasie możemy 
     struct Time
     {
