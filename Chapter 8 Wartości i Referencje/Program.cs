@@ -8,13 +8,13 @@ using valuesAndReferences.Model;
 namespace valuesAndReferences
 {
     // Typy wartościowe mają stały rozmiar.
-    // Gdy deklarujemy zmienną typu wartościowego to kopilator rezerwuje na stosie odpowiedni rozmiar pamięci aby pomieścic wartość danego typu np. int ma rozmiar 4 bajtow (32bity).
+    // Gdy deklarujemy zmienną typu wartościowego to kopilator rezerwuje na stosie odpowiedni rozmiar pamięci aby pomieścic wartość danego typu np. int zajmuje 4 bajty (32bity).
     // Typy referencyjne
-    // Gdy deklarujemy zmienna typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby móc zapisac adres (referencje) do obiektu.
-    // Faktyczny przydział pamięci nastąpi na stercie (ang. heap) dopiero podczas tworzenia obiektu za pomocą słowa kluczowego 'new' oraz zostanie przypisana od niego referencja.
+    // Gdy deklarujemy zmienna typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby zapisac adres (referencje) do obiektu.
+    // Faktyczny przydział pamięci nastąpi na stercie (ang. heap) dopiero podczas tworzenia obiektu za pomocą słowa kluczowego 'new' oraz zostanie przypisana od zmiennej referencja.
     // Stos - System przydziela każdej aplikacji własny stos.
-    // Podczas wykonywania metody pamieć potrzebna do przechowywania parametrów funkcji oraz lokalnych zmiennych funkcji jest rezerwowana na stosie. Po zakończeniu metody lub przy zgłoszeniu wyjątku ta pamięć jest zwalniana
-    // 
+    // Podczas wykonywania metody pamieć potrzebna do przechowywania parametrów funkcji oraz lokalnych zmiennych funkcji jest rezerwowana na stosie.
+    // Po zakończeniu metody lub przy zgłoszeniu wyjątku ta pamięć jest zwalniana.
     class Program
     {
         static void Main(string[] args)
@@ -34,11 +34,14 @@ namespace valuesAndReferences
         static void CopyAndPassRefToObject()
         {
             WrappedInt wi = new WrappedInt();
-            Pass.Reference(wi);
+            Pass.Reference(wi); // Przekazujemy referencje do obiektu 'wi'. Do funkcji zawsze trawia wartość ze stosu.
 
             // Kompilator rezerwuje pamiec i przekazuje referencje do zmiennej
             WrappedInt wi2 = new WrappedInt();
-            // Nadpisujemy referencje, do poprzedniego miejsca w pamięci żadna zmienna już się nie odwołuje więc Garbage collection odzyskuje zaalokowaną pamięc. Ten proces jest kosztowny czasowo-sprzętowo.
+
+            //Garbage collection 
+            // Nadpisujemy referencje, do poprzedniego miejsca w pamięci żadna zmienna już się nie odwołuje więc Garbage collection odzyskuje zaalokowaną pamięc.
+            // Ten proces jest kosztowny czasowo-sprzętowo.
             wi2 = wi;
             // Dobrą praktyką jest aby przypisywać/kopiować referencje do zmiennej gdy nie zawiera jeszcze żadnej referencji.
             WrappedInt wi3 = null;
@@ -46,6 +49,8 @@ namespace valuesAndReferences
             {
                 wi3 = wi;
             }
+
+            // Note: Do funkcji zawsze trawia wartość ze stosu.
         }
 
         static void ConditionalNullOperator()
@@ -53,73 +58,79 @@ namespace valuesAndReferences
             // Operator warunkowy wartości null (?)
             Pass p = null;
 
-            // Operatorem warunkowym null przed uzyciem metody na obiekcie sprawdza czy dany obiekt nie jest null`em.
-            // Jeśli jest null`em to dana metoda NIE zostanie wykonana 
+            // Operator warunkowy null przed uzyciem metody instancji sprawdza czy dany obiekt/instancja nie jest null`em.
+            // Jeśli jest null`em to dana metoda NIE zostanie wykonana. 
 
             // W tym przypadku instrukcja zostanie pominięta.
             Console.WriteLine($"p value is: {p?.ToString()}");  // Wyswietli się "p value is:" |  Console.WriteLine($"p value is: {null}");
 
-            string stringValue = p?.ToString(); // przypisze nulla  
+            string stringValue = p?.ToString(); // Nie zostanie zgłoszony wyjątek. Do zmiennej stringValue przypisze nulla  
 
             // OtherObject jest null`em
             p = new Pass();
-            int? intValue = p.OtherObject?.GetIntegerValue();  // przypisze nulla  
-
-            // Note: Jeśli obj jest nullem to metoda zostanie pominięta i zostanie przypisana wartość obiektu.
+            int? intValue = p.OtherObject?.GetIntegerValue();  //  Do zmiennej intValue przypisze nulla           
         }
 
         static void NullableVariable()
         {
             // Zmienne Nullowalne (Typy danych dopuszczające zapis wartości null). Zmienne Nullowalne są typu referencyjnego.
-            // Możliwe jest tworzenie bardziej rozbudowanych zmienncyh nullowalnych niż poniższy przykład.
             int? a = null;
 
-            // zmienne nullowalne posiadają 2 właściwości:
-            bool b = a.HasValue; //sprawdza czy zmienna 'a' posiada zwykłą wartość (reprezentującą przez typ wartościowy (prosty))
-            int v = a.Value; //zwraca wartość typu prostego jeśli istnieje.
+            // Zmienne Nullowalne posiadają 2 właściwości:
+            bool b = a.HasValue; // Sprawdza czy zmienna 'a' posiada wartość.
+            int v = a.Value; // Zwraca wartość typu prostego jeśli istnieje.
 
             // Pass? objPass = null; Błąd kompilacji
-            // Note: Zmienne referencyjne nie można przerobić na 'nullowalną' gdyż do nich zawsze można przypisać nulla. Zmienne referencyjne nie posiadają tych 2 własciwości.
+            // Zmienne referencyjne nie można przerobić na Zmienną Nullowalną gdyż do nich zawsze można przypisać nulla. Zmienne referencyjne nie posiadają tych 2 własciwości.
+
+            //Note: Zmienne Nullowalne są typu referencyjnego.
         }
 
         static void RefAndOutParameterType()
         {
-            // Modyfikatory ref i out powodują, że parametry funkcji stają się aliasem/przedłużeniem jej argumentu.
+            // Modyfikatory ref i out powodują, że parametry funkcji stają się aliasem/przedłużeniem jej argumentu. Funkcja nie tworzy kopii tylko pracuje na oryginale.
 
             WrappedInt wrappedInt = new WrappedInt(10);
             int iValue = 4;
-            ChangeValue(wrappedInt, iValue); // zmienne przekazane w funkcji nazywamy argumentami.
+            ChangeValue(wrappedInt, iValue); // zmienna przekazana do metody nazywamy argumentem.
             Console.WriteLine($"{wrappedInt.Value}, {iValue}"); // 14, 4
             ChangeValue(ref wrappedInt, ref iValue);
             Console.WriteLine($"{wrappedInt.Value}, {iValue}"); // 1, 9
 
-            // Modyfikator 'out' umożliwia przekazanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem. W takiej funkcji musi nastąpić przypisanie wartości do argumentu.
+            // Modyfikator 'out' umożliwia przekazanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem.
+            // W takiej funkcji musi nastąpić przypisanie wartości do argumentu.
             int arg;
-            DoIncrement(out arg); 
+            DoIncrement(out arg);
+
+            //Note: Z modyfikatorami 'out' 'ref' funkcja nie tworzy kopii zmiennej tylko pracuje na oryginale.
         }
 
-        static void ChangeValue(WrappedInt wrappedInt, int iValue) // zmienne funkcji nazywamy parametrami.
+        static void ChangeValue(WrappedInt wrappedInt, int iValue)
         {
-            // Do funkcji przekazujemy kopie wartości. Nie operujemy na orginalnej zmiennej. W tym przypadku na kopii referencji która wskazuje na ten sam obiekt i kopii inta (2 osobne instancje).
+            // Do funkcji trafia wartość ze stosu, następnie funkcja tworzy zmienną tego samgo typu i o tej samej wartości (kopie).
             wrappedInt.Value = 14;
             iValue = 9;
+
+            //Note: W tym przypadku metoda utworzy 2 kopie.
         }
 
-        static void ChangeValue(ref WrappedInt wrappedInt, ref int iValue) // przekazujemy obiekt, nie tworzymy kopii.
+        static void ChangeValue(ref WrappedInt wrappedInt, ref int iValue) 
         {
-            // Do funkcji przekazujemy prawdziwy obiekt (argument)
+            // Funkcja nie tworzy kopii.
+
             wrappedInt.Value = 99;
-            WrappedInt otherWrappedInt = new WrappedInt(1);
-            // zmieniamy referencje do obiektu. (Wartość na stosie)
-            wrappedInt = otherWrappedInt;
-            // zmieniamy wartość na stosie.
+
+            // Zmieniamy wartość na stosie.
+            wrappedInt = new WrappedInt(1); 
             iValue = 9;
+
+            //Note: Funkcja nie tworzy kopii zmiennych tylko pracuje na oryginale.
         }
 
         static void DoIncrement(out int param)
         {
             // param++; 
-            // błąd kompilacji, 'param' tak naprawdę jest 'arg' przed wykonaniem takiej operacji nalezy ją najpierw zainicjować.
+            // błąd kompilacji, 'param' jest argumentem, przed wykonaniem takiej operacji nalezy ją najpierw zainicjować.
 
             param = 0;
             param++;
@@ -127,56 +138,58 @@ namespace valuesAndReferences
 
         static void SystemObjectClass()
         {
-            // Zmienna klasy object moze przechowywać referencje dowolnego obiektu. Zmienne referencyjne przechowują na stosie wyłącznie referencje do obiektu znajdującego się na stercie.
+            // Zmienna typu 'object' moze przechowywać referencje do dowolnego obiektu.
    
             WrappedInt w1 = new WrappedInt();
-            // Rezewujemy pamięć potrzebną do pomieszczenia WrappedInt na stercie (ang.heap) i zapisujemy do niej referencje. (do pudełka typu object)
             object o = w1;
 
             //Note: Rekomedowanie jest uzywanie aliasu 'object' zamiast System.Object tak samo jak 'string' zamiast System.String
         }
-        static void Boxing()
+        static void Boxing() // Opakowywaniem (ang. Boxing)       
         {
+            // Opakowywanie zmiennych typu referencyjnego
             // Zmienne typu 'object' mogą również przechowywać wartości zmiennych typu wartościowego.
             int value = 13;
 
-            // Środowisko uruchomieniowe alokuje odpowienią ilość pamięci ze sterty (ang.heap) aby pomieścić odpowiedni typ danych, przekazuje kopię wartości na sterte i przekazuje do niej referencje na stos.
+            // Środowisko uruchomieniowe alokuje odpowienią ilość pamięci na stercie (ang.heap) aby pomieścić odpowiedni typ danych.
+            // Przekazuje kopię wartości na sterte i przekazuje do niej referencje na stos.
             object ob = value;
 
             value++; //14
             ob.ToString(); //13
 
-            //Note: Taka operacja nazywa sie opakowywaniem (ang. Boxing)            
+            //Note: Tworzenie zmiennej referencyjnej na podstawie zmiennej wartościowej. Taka operacja nazywa sie opakowywaniem (ang. Boxing)            
         }
-        static void UnBoxing() //Rozpakowywanie
+        static void UnBoxing() // Rozpakowywanie
         {
             object obj = 33;
-            // Rzutowanie (ang. cast) zmiennej object z powrotem do zmiennej wartościowej/prostej
+            // Rzutowanie (ang. cast) zmiennej object z powrotem do zmiennej wartościowej/prostej.
             // Kompilator generuje kod, który podczas wykonywania programu sprawdza zgodność typów pomiędzy typem zdefinowanym w () a rzeczywistym typem przechowywanym w obiekcie (na stercie).
-            int i = (int)obj;
+            int intValue = (int)obj;
 
-            // Zostanie skompilowany bez błedu ale w czasie wykonywania zostanie zgloszony wyjątek InvalidCastException
+            // Zostanie skompilowany bez błedu ale w czasie wykonywania zostanie zgloszony wyjątek: InvalidCastException
             //WrappedInt wrapInt = (WrappedInt)obj;
             //decimal d1 = (decimal)obj;
 
-            //Note: Operacje Pakowania i Rozpakowania ze względu na alokowanie dodatkowej pamięci na stercie i dodatkowe instrukcje sprawdzające poprawność typu są bardzo kosztowne sprzętowo
-
+            //Uwaga: Nie mylić unboxingu z rzutowaniem typów wartościowych.
             // Rzutowanie typu wartościowego -- Inna Bajka
-            // Zadziała. Kompilator podpowiada, że '(decimal)' jest niewymagany. Wartość liczbowa Int jest mniejszej precyzji od decimala, w takich wypadkach można rzutować 'niejawnie'.  
-            decimal d2 = (decimal)i;
+            // Wartość liczbowa 'int' jest mniejszej precyzji niż 'decimal', w takich wypadkach można rzutować 'niejawnie'.  
+            decimal d2 = (decimal)intValue; // Zadziała. Kompilator podpowiada, że '(decimal)' jest niewymagany.
             decimal d3 = 15.99m;
-            // Zadziała. Należy 'jawne' określenie typu danych.
-            int i2 = (int)d3;
+            // Rzutowanie decimal do inta. Należy 'jawne' określenie typu danych.
+            int i2 = (int)d3; 
+
+            //Note: Operacje Pakowania i Rozpakowania ze względu na alokowanie dodatkowej pamięci na stercie i dodatkowe instrukcje sprawdzające poprawność typu są bardzo kosztowne sprzętowo
         }
-        static void SaveCastingOperatorIsAndAs()  //Save casting - operator is and as. Bezpieczne rzutowanie
+        static void SaveCastingOperatorIsAndAs()  //Save casting - operator 'is' i 'as'. Bezpieczne rzutowanie
         {
-            // Kompilator nie sprawdza czy typy są ze sobą zgodne lecz srodowisko uruchomieniowe (.Net) to robi!
+            // Kompilator nie sprawdza czy typy zmiennych są ze sobą zgodne lecz srodowisko uruchomieniowe (.Net)
 
             WrappedInt wrapInt = new WrappedInt();
             object obj = new WrappedInt();
 
             // Operator 'is' wykorzystywany jest do sprawdzenia typu obiektu.
-            // Operator 'is' ma 2 argumenty po lewej referencje do obiektu i po prawej typ dancyh. Jeśli typ danych zgadza się z typem obiektu znajdującym się na stercie zwróci 'true' jeśli nie 'false'
+            // Jeśli typ danych zgadza się z typem obiektu znajdującym się na stercie zwróci 'true' jeśli nie 'false'.
             bool b = wrapInt is WrappedInt; // true
             b = wrapInt is object; // true
             b = obj is WrappedInt; //true
@@ -186,9 +199,13 @@ namespace valuesAndReferences
             {
                 WrappedInt temp = (WrappedInt)obj; // Operacja bezpieczna
             }
+            else
+            {
+                WrappedInt temp = null;
+            }
 
             // Operator 'as' pełni taką samą role co operacja SAVE CASTING. Równiez posiada 2 arg. po lewej referencje do obiektu na stercie po prawej typ danych.
-            // Środowisko uruchomieniowe w czasie wykonywania programu podejmie próbe rzutowania, gdy sie powiedzie zwróci wartość w przciwnym razie NULL`a.
+            // Środowisko uruchomieniowe w czasie wykonywania programu podejmie próbę rzutowania, gdy sie powiedzie zwróci wartość w przciwnym razie NULL`a.
             WrappedInt temp2 = obj as WrappedInt; 
             if(temp2 != null)
             {

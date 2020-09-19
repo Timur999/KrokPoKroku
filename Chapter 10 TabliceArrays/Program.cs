@@ -6,12 +6,12 @@ namespace Chapter_10_TabliceArrays
     // Tablice (klasa System.Array) zawieraja zbiór elementów tego samego typu. Tablica jest typem referencyjny a elementy są przechowywane obok siebie w pamięci. Dostep do nich odbywa się za pomocą indexu.
     class Program
     {
+        // Parametr w metodzie Main. Funckja Main jest to punkt wejscia do programu. Uruchamiając aplikacje z poziomu cmd możemy zdefiniować dodatkowe argumenty które zostaną przekazane do tej funkcji.
+        // System Windows przekazuje argumenty do CLR który następnie uruchamia aplikacje. Możemy w ten sposób dostarczyc pewnych danych bez konieczności pobierania ich bezpośrednio w kodzie. Ma to zastosowanie w skryptach
+        // Aby uruchomić aplikacje w cmd należy dodac zmienna srodowiskową Path "C:\Windows\Microsoft.NET\Framework\v4.0.30319", przejsc do folderu z programem, wpisac nazwe programu i podac parametry po spacji
+        // Program d:\folder\plik.rozszerzenie np. d:\fotki\fota.jpg
         static void Main(string[] args)
         {
-            // Parametr w metodzie Main. Funckja Main jest to punkt wejscia do programu. Uruchamiając aplikacje z poziomu cmd możemy zdefiniować dodatkowe argumenty które zostaną przekazane do tej funkcji.
-            // System Windows przekazuje argumenty do CLR który następnie uruchamia aplikacje. Możemy w ten sposób dostarczyc pewnych danych bez konieczności pobierania ich bezpośrednio w kodzie. Ma to zastosowanie w skryptach
-            // Aby uruchomić aplikacje w cmd należy dodac zmienna srodowiskową Path "C:\Windows\Microsoft.NET\Framework\v4.0.30319", przejsc do folderu z programem, wpisac nazwe programu i podac parametry po spacji
-            // Program d:\folder\plik.rozszerzenie np. d:\fotki\fota.jpg
             foreach (string arg in args)
             {
                 Console.WriteLine(arg);
@@ -19,16 +19,23 @@ namespace Chapter_10_TabliceArrays
 
 
             // Zakres rozdziału:
-            Declaration();
-            Initalization();
-            TableWithAnonymousObject();
-            string[] animals = new string[] { "cat", "dog" };
-            IterationThroughoutArray(animals);
-            TableAsAParameter(new int[] { 1, 2, 3, 4 });
-            string[] newTable = CopyTable(animals);
-            MultiMatrixTable();
-            UnregularTable();
-            GetValueFromTable();
+            //Declaration();
+            //Initalization();
+            //TableWithAnonymousObject();
+            //string[] animals = new string[] { "cat", "dog" };
+            //IterationThroughoutArray(animals);
+            //TableAsAParameter(new int[] { 1, 2, 3, 4 });
+            //string[] newTable = CopyTable(animals);
+            //MultiMatrixTable();
+            //UnregularTable();
+            //GetValueFromTable();
+
+            int[] tab = new int[] { 1, 2, 3, 4 };
+            TableAsAParameter(tab);
+
+            foreach(int i in tab){
+                Console.WriteLine(i);
+            }
         }
 
         public static void Declaration()
@@ -104,12 +111,10 @@ namespace Chapter_10_TabliceArrays
         {
             // Należy zwrócić uwage, że tablica jest zmienną referencyjną a więc zmiany na utworzonej kopii będą widoczne we wszystkich innych zmiennych zawierających referencje do tej tablicy.
             numbers[0] = 10;
-            // Zmiana wartości zmiennej na stosie spowoduje zmiane tylko i wyłącznie na zmiennej przekazanej w parametrze oraz argumencie metody czyli utworzonej kopii.
+            // Modyfikacja wartości na stosie kopii zmiennej 'numbers' utworzonej przez funkcje. Nie spowoduje to zmiany wartości zmiennej przekazanej w parametrze metody.
             numbers = new int[2];
 
             return new int[1];
-
-            //Note: Zasady zmieniania wartości elementów tablicy są opisane dalej w metodzei "GetValueFromTable()" i jest to związane z typem danych tablicy. Referencyjny lub wartościowy
         }
 
         public static string[] CopyTable(string[] names)

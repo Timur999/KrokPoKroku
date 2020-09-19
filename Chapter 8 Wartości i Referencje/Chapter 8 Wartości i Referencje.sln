@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "valuesAndReferences", "valuesAndReferences.csproj", "{A46627F3-F07A-4B0F-A160-0BAA9785A358}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 8 Wartości i Referencje", "Chapter 8 Wartości i Referencje.csproj", "{A46627F3-F07A-4B0F-A160-0BAA9785A358}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
