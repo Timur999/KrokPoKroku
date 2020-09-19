@@ -3,22 +3,24 @@ using System;
 
 namespace Chapter_10_TabliceArrays
 {
-    // Tablice (klasa System.Array) zawieraja zbiór elementów tego samego typu. Tablica jest typem referencyjny a elementy są przechowywane obok siebie w pamięci. Dostep do nich odbywa się za pomocą indexu.
+    // Tablice (klasa System.Array) zawieraja zbiór elementów tego samego typu.
+    // Tablica jest typem referencyjny a elementy są przechowywane obok siebie w pamięci. Dostep do nich odbywa się za pomocą indexu.
     class Program
     {
-        // Parametr w metodzie Main. Funckja Main jest to punkt wejscia do programu. Uruchamiając aplikacje z poziomu cmd możemy zdefiniować dodatkowe argumenty które zostaną przekazane do tej funkcji.
-        // System Windows przekazuje argumenty do CLR który następnie uruchamia aplikacje. Możemy w ten sposób dostarczyc pewnych danych bez konieczności pobierania ich bezpośrednio w kodzie. Ma to zastosowanie w skryptach
-        // Aby uruchomić aplikacje w cmd należy dodac zmienna srodowiskową Path "C:\Windows\Microsoft.NET\Framework\v4.0.30319", przejsc do folderu z programem, wpisac nazwe programu i podac parametry po spacji
-        // Program d:\folder\plik.rozszerzenie np. d:\fotki\fota.jpg
+        // Parametr 'string[] args' w metodzie Main. Funckja Main jest to punkt wejscia do programu. 
+        // Uruchamiając aplikacje z poziomu cmd możemy zdefiniować dodatkowe argumenty które zostaną przekazane do tej funkcji.
+        // System Windows przekazuje argumenty do CLR który następnie uruchamia aplikacje. W ten sposób możemy dostarczyć dane,
+        // bez konieczności pisania kodu, który je pobierze. Ma to zastosowanie w skryptach
+        // Aby uruchomić aplikacje w cmd należy dodać zmienną srodowiskową Path "C:\Windows\Microsoft.NET\Framework\v4.0.30319", 
+        // przejść do folderu zawierającego program, wpisac nazwe programu i podac parametry po spacji np:
+        // HelloWord d:\folder\plik.rozszerzenie np. d:\fotki\fota.jpg
         static void Main(string[] args)
         {
             foreach (string arg in args)
             {
                 Console.WriteLine(arg);
             }
-
-
-            // Zakres rozdziału:
+         
             //Declaration();
             //Initalization();
             //TableWithAnonymousObject();
@@ -40,7 +42,7 @@ namespace Chapter_10_TabliceArrays
 
         public static void Declaration()
         {
-            //Deklaracja. Alokowana jest nie wielka ilosc pamięci na stosie aby przechowywać referencje
+            // Deklaracja.
             string[] names;
             string[,] table;
             string[][] elements;
@@ -48,22 +50,18 @@ namespace Chapter_10_TabliceArrays
 
         public static void Initalization()
         {
-            string[] names;
-
-            //Inicjalizacja. Alokowana jest pamieć na stercie i przypisujemy referencje
-            names = new string[3];
-            //Ponieważ pamięć jest alokowana dynamicznie w trakcie działania programu, rozmiar tabeli nie musi byc wartością const/stałą.
+            // Inicjalizacja.
+            string[] names = new string[3];
+            // Ponieważ pamięć jest alokowana dynamicznie w trakcie działania programu, rozmiar tabeli nie musi byc wartością const/stałą.
             names = new string[int.Parse(Console.ReadLine())];
-            //Dopuszczalna jest rozmiar tablicy zero. W tedy nie jest to null ale jest to tablica o zerowej ilości elementów 
-
-            //Wypełnianie tablic. Po inicjalizacji jeśli nie przypiszemy wartości to zostanie przypisana wartośc domyślna. (Dla typów wartościowych - zero, referencyjnych - null, daty - 01/01/0001 00:00:00
-            names = new[] { "Tom", "John", "Rob" };
-            //Ponieważ pamięć jest alokowana dynamicznie w trakcie działania programu, elementy tablicy nie musi byc wartością const/stałą.
+            // Dopuszczalna jest rozmiar tablicy zero. W tedy nie jest to null ale jest to tablica o zerowej ilości elementów.
+            names = new string[0];
+            // Wypełnianie tablic. Po inicjalizacji jeśli nie przypiszemy wartości to zostanie przypisana wartośc domyślna. 
+            names = new[] { "Tom", "John", "Rob" }; // (Dla typów wartościowych - zero, referencyjnych - null, daty - 01/01/0001 00:00:00)
             names = new[] { Console.ReadLine(), Console.ReadLine(), Console.ReadLine() };
-
-            //Ilość elementów musi byc identyczna z rozmiarem tablicy
+            // Ilość elementów musi byc identyczna z rozmiarem tablicy.
             int[] luckyNumbers = new int[6] { 1, 2, 4, 88, 12, 54 };
-            // luckyNumbers = new int[6] { 1, 2, 4}; bład kompulacji
+            // luckyNumbers = new int[6] { 1, 2, 4}; bład kompilacji.
 
             // Inicjalizacja bez new
             int[] salaryRange = { 999999, 99999999 };
@@ -74,7 +72,7 @@ namespace Chapter_10_TabliceArrays
 
         public static void TableWithAnonymousObject()
         {
-            //Tablice o niejawnie okreslonym typie.
+            // Tablice o niejawnie okreslonym typie.
             var cars = new[] { "Fiat", "Ford" };
             //var wrongTable = new[] { 1, 2, "A", "B" };  Muszą byc tego samego typu
             var doubleElements = new[] { 1, 2, 3.5, 9.99999 }; //domyslna konwersja na double
@@ -95,7 +93,7 @@ namespace Chapter_10_TabliceArrays
             {
                 if (name.Equals("Rob"))
                 {
-                    names[2] = "Bob"; // nie ma indeksu, w takiej sytuacji lepsza becie petla for
+                    names[2] = "Bob"; // foreach nie ma indeksu, w takiej sytuacji lepsza bedzie petla for
                 }
             }
 
@@ -104,15 +102,14 @@ namespace Chapter_10_TabliceArrays
             foreach (string motor in motors)
             { }
 
-             Console.ReadKey();
+            // Note: Przed każdym pobraniem elementu z tablicy jest sprawdzane czy index nie przekracza wielkosci tablicy lub jest mniejsze niz zero.
         }
 
         public static int[] TableAsAParameter(int[] numbers)
         {
-            // Należy zwrócić uwage, że tablica jest zmienną referencyjną a więc zmiany na utworzonej kopii będą widoczne we wszystkich innych zmiennych zawierających referencje do tej tablicy.
-            numbers[0] = 10;
-            // Modyfikacja wartości na stosie kopii zmiennej 'numbers' utworzonej przez funkcje. Nie spowoduje to zmiany wartości zmiennej przekazanej w parametrze metody.
-            numbers = new int[2];
+            // Należy zwrócić uwage, że tablica jest zmienną referencyjną.
+            // Zmiany na utworzonej kopii będą widoczne we wszystkich innych zmiennych zawierających referencje do tej tablicy.
+            numbers[0] = 10; // Zmieniamy wartość na stercie.
 
             return new int[1];
         }
@@ -132,19 +129,19 @@ namespace Chapter_10_TabliceArrays
             // Kopiowanie jest bardzo powszeche w programowaniu dlatego tablice posiadają "metody instancji" 'CopyTo' i 'Clone' oraz statyczną metode 'Copy'.
 
             // Metoda CopyTo. 
-            // dDugi param określa od którego indexu rozpocząc kopiowanie
+            // Dugi param określa od którego indexu rozpocząc kopiowanie
             names.CopyTo(copyTable, 10);
 
             // Copy - Metoda statyczna klasy Array.
             Array.Copy(names, copyTable, 0);
 
-            //Clone - metoda instacji. Funkcja ta zwraca nową instancje tabeli w postaci object
-            string[] copy = (string[])names.Clone();
+            // Clone - metoda instacji. Funkcja ta zwraca nową instancje tabeli w postaci object.
+            object copy = names.Clone();
+  
+            return (string[])names.Clone(); ;
 
-            return copy;
-
-            //Note: wszystkie te metody tworzą płytką kopie (gdy element np obiekt Car zawiera zmienna referencyjna np. Owner to zostanie skopiowania tylko referencja do tego obiektu. Gdy tworzona jest kopia do tego obiektu mowimy o kopi głębokiej)  
-            // Gdy chcemy wykonac kopie głęboką nalezy uzyc petli for
+            //Note: wszystkie te metody tworzą tzw. 'kopie płytką' (gdy elementem tablicy jest obiekt Car, który zawiera Pole typu referencyjnego np. Engine to zostanie skopiowana tylko referencja do tego obiektu).
+            // Gdy chcemy wykonac kopie głęboką nalezy uzyc petli for. Utworzyc nowy obiekt i przekopiować wszystkie wartości 
         }
 
         public static void MultiMatrixTable()
@@ -174,33 +171,45 @@ namespace Chapter_10_TabliceArrays
 
         public static void GetValueFromTable()
         {
-            Player[] players = new Player[3];
+            Player[] players = new Player[3]; // Tabela zawiera 3 elementy typu referencyjnego. Na stercie posiadac 3 referencje do obiektów 'Player'
             Player player = players[2]; // przekazuje na stos kopie referencji do obiektu. Pracujemy na oryginale
-            int[] intTab = new int[] { 1, 2, 3 };
+            int[] intTab = new int[] { 1, 2, 3 }; // Tabela zawiera 3 elementy typu prostego. Na stercie posiadac 3 wartości typu 'int'
             int number = intTab[1]; // przekazuje na stos kopie wartości. Pracujemy na kopii
 
-            // 
             foreach (int i in intTab)
             {
                 Console.Write($"{i}, "); // 1, 2, 3,
             }
 
+            // Ref Local - nowa zmienna od C# 7.0. Jest uzywana głównie w połączeniu z Ref Returns i przechowuje referencje. Jest to wskaźnik
             ref int first = ref GetFirstElement(intTab);
             first = 99;
             foreach (int i in intTab)
             {
                 Console.Write($"{i}, "); // 99, 2, 3,
             }
+
+            // Wiecej o Ref Local i Ref return: https://www.c-sharpcorner.com/article/working-with-ref-returns-and-ref-local-in-c-sharp-7-0/
+
+            // Wskaźniki wskazują na obszar pamięci na stercie lub stosie.
+            // int *pi; deklaracja wskaźnika do liczby całkowitej. Wskaźniki przechowuja adress/referencje do zmiennych
+            // int i = 99;
+            // *pi = &i; 
+            // &i zwraca addres
+            // *pi = 100; wskaznik *pi wskazuje na zmienna i
+
+            // Czy zmienne referencyjne przechowuja tylko adres do zmiennych na stercie? Na 99% tak ale sie upewnic
         }
 
         private static ref int GetFirstElement(int[] intTab)
         {
-            return ref intTab[0];
+            // Ref Returns
+            return ref intTab[0]; // &intTab[0] 
         }
 
         //Uwaga. Ten kod sie nie skompiluje.
         // Problem wiszącego wskaźnika. Czesto spotykany bład w jezyku C. Nie można zwrócic referencji do obiektu z metody w której obiekt został stworzony.
-        //private static ref int DanglingReference(int[] intTab) //tłumaczeniu wiszacy wskażnik
+        //private static ref int DanglingReference(int[] intTab) //w tłumaczeniu wiszący wskaźnik
         //{
         //    int i;
 
