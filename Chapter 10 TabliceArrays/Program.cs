@@ -191,7 +191,7 @@ namespace Chapter_10_TabliceArrays
 
             // Wiecej o Ref Local i Ref return: https://www.c-sharpcorner.com/article/working-with-ref-returns-and-ref-local-in-c-sharp-7-0/
 
-            // Wskaźniki wskazują na obszar pamięci na stercie lub stosie.
+            // Wskaźniki wskazują na obszar pamięci na stercie lub stosie. (obrazek w resourcach)
             // int *pi; deklaracja wskaźnika do liczby całkowitej. Wskaźniki przechowuja adress/referencje do zmiennych
             // int i = 99;
             // *pi = &i; 
