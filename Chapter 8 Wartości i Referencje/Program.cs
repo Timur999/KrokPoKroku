@@ -98,11 +98,12 @@ namespace valuesAndReferences
             Console.WriteLine($"{wrappedInt.Value}, {iValue}"); // 1, 9
 
             // Modyfikator 'out' umożliwia przekazanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem.
-            // W takiej funkcji musi nastąpić przypisanie wartości do argumentu.
+            // W takiej funkcji musimy przypisać wartość do tego argumentu.
             int arg;
             DoIncrement(out arg);
 
-            //Note: Z modyfikatorami 'out' 'ref' funkcja nie tworzy kopii zmiennej tylko pracuje na oryginale.
+            //Note: Z modyfikatorami 'out' 'ref' parametry funkcji stają się aliasem/przedłużeniem jej argumentu.
+            // Metoda nie tworzy kopii zmiennych tylko pracuje na oryginale.
         }
 
         static void ChangeValue(WrappedInt wrappedInt, int iValue)
@@ -129,8 +130,8 @@ namespace valuesAndReferences
 
         static void DoIncrement(out int param)
         {
-            // param++; 
-            // błąd kompilacji, 'param' jest argumentem, przed wykonaniem takiej operacji nalezy ją najpierw zainicjować.
+            // param++; Błąd kompilacji.
+            // 'param' jest aliasem i nie posiada wartośći. Przed wykonaniem incrementacji, należy ją zainicjować.
 
             param = 0;
             param++;
