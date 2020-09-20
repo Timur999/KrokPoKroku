@@ -31,13 +31,6 @@ namespace Chapter_10_TabliceArrays
             //MultiMatrixTable();
             //UnregularTable();
             //GetValueFromTable();
-
-            int[] tab = new int[] { 1, 2, 3, 4 };
-            TableAsAParameter(tab);
-
-            foreach(int i in tab){
-                Console.WriteLine(i);
-            }
         }
 
         public static void Declaration()
