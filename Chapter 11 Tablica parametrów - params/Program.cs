@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Chapter_11_Tablica_parametrów_params
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DifferentAmountTheSameType();
+            DifferentAmountDifferentType();
+            OptionalParameterAndParams();
+        }
+
+        static void DifferentAmountTheSameType()
+        {
+            int[] numbers = new int[] { 1, 2, 4, 6 };
+            Min(numbers);
+            Max(1, 4, 8, 4); // Max(new int[4] {1, 4, 8, 4});
+            Max(); // Max(new int[0]);
+            Max(null); // Max(null);
+            Max(numbers);
+        }
+
+        // Należy zdefionwać wlasną tablice
+        static int Min(int[] numbers)
+        {
+            if(numbers == null || numbers.Length == 0)
+            {
+                throw new ArgumentException("Nie prawidłowa wartość parametrów metody.");
+            }
+
+            int min = numbers[0];
+            foreach(int numb in numbers)
+            {
+                if(min > numb)
+                {
+                    min = numb;
+                }
+            }
+
+            return min;
+        }
+
+        // Nie trzeba recznie tworzyc tablicy, kompilator sam zrobi tablice o odpowiednim rozmiarze oraz typie. 
+        static int Max(params int[] numbers)
+        {
+            //DOTO: znajdz maxa
+            return 1;
+        }
+
+        // Kwestie warte uwagi związene z tablica parametrów typu 'params':
+
+        //1. Nie mozna używac 'params' dla tablic wielowymiarowych
+        // błąd kompilacji
+        //  static int Max(params int[,] numbers)
+
+        //2. Nie można przeciązyc metody wyłącznie dodając słowo kluczowe 'params'. Słowo 'params' nie jest częścią sygnatury metody.
+        // błąd kompilacji
+        //static int Max(int[] numbers)
+        //static int Max(params int[] numbers) // dla kompilatora jest to to samo.
+
+        //3. Nie moga być używane z modyfikatorami ref i out.
+
+        //4. Tablica parametrów typu 'params' muszą być ostatnim parametrem metody.
+        // błąd kompilacji
+        //static int Max(params int[] numbers, int index)
+
+        //5. Metody, które nie używają 'params' w parametrze mają wyższy priorytet od tych które używają.
+        // static int Max(int pierwsza, int druga, int trzecia)
+        // static int Max(params int[] numbers)
+        // Druga metoda wykona się w każdym innym przypadku gdy ilość parametrów bedzie różna od trzech.
+
+
+        static void DifferentAmountDifferentType()
+        {
+            Drawer("skarpetki", 1, 'T');
+            // Dobrym przykładem takiej metody jest Console.WriteLine();
+            // Console.WriteLine(string format, params object[] arg);
+            Console.WriteLine("{0} dziennie {1} dostarcza duzo wit. {2}.", 1, "herbata", 'C');
+
+            Drawer(new int[] { 1, 2, 5 }, new string[] { "Pen", "Pencil" },
+                new []{ new { Name = "gloves", price = 10}, new { Name = "scarf", price = 20 } });
+        }
+
+        //Różna ilość parametrów o różnych typach. params object[]
+        // Wszystkie parametry zostaną rzutowane do typu object.
+        static void Drawer(params object[] things)
+        {
+            //TODO: zrób porządek w szufladzie
+        }
+
+        static void OptionalParameterAndParams()
+        {
+            //Wykona się metoda z parametrami opcjionalnymi
+            Sum();
+            Sum(1);
+            Sum(1,2,3,4);
+            //Wykona się metoda z tablicą parametrów typu 'params'
+            Sum(1, 2, 3, 4, 5);
+        }
+
+        static int Sum(int a = 0, int b = 0, int c = 0, int d = 0)
+        {
+            return a + b + c + d;
+        }
+
+        static int Sum(params int[] numbers)
+        {
+            return numbers.Sum();
+        }
+    }
+}
