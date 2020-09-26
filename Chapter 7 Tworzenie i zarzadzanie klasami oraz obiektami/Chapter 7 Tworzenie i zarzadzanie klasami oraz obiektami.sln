@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Classies", "Classies\Classies.csproj", "{E3021676-9027-45C1-8982-7F1D2CE03B76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 7 Tworzenie i zarzadzanie klasami oraz obiektami", "Classies\Chapter 7 Tworzenie i zarzadzanie klasami oraz obiektami.csproj", "{E3021676-9027-45C1-8982-7F1D2CE03B76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

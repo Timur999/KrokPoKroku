@@ -7,7 +7,7 @@ using static System.Console;
 
 // Hermetyzacja polega na zasłonięciu zasady działania metody/klasy. Ważne aby realizował swoję zadanie.
 
-namespace Classies
+namespace Chapter_7_Tworzenie_i_zarzadzanie_klasami_oraz_obiektami
 {
     class Program
     {
