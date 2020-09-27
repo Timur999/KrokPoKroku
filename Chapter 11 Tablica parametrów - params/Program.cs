@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chapter_11_Tablica_parametrów_params
 {
@@ -10,16 +7,23 @@ namespace Chapter_11_Tablica_parametrów_params
     {
         static void Main(string[] args)
         {
-            DifferentAmountTheSameType();
-            DifferentAmountDifferentType();
+            ParameterInMethodDifferentAmountTheSameType();
+            ParameterInMethodDifferentAmountDifferentType();
             OptionalParameterAndParams();
+
+            Console.ReadKey();
         }
 
-        static void DifferentAmountTheSameType()
+        static void ParameterInMethodDifferentAmountTheSameType()
         {
+            // Parametrem metody jest tablica int[]
             int[] numbers = new int[] { 1, 2, 4, 6 };
-            Min(numbers);
-            Max(1, 4, 8, 4); // Max(new int[4] {1, 4, 8, 4});
+            Min(numbers); // Musimy utworzyc ręcznie własną tablice. 
+            Min(new int[4] { 1, 4, 8, 4 });
+
+            // Parametrem metody jest tablica parametrów 'params' o typie int.
+            // Nie musimy tworzyc własnej tablicy. Kompilator zrobi to za nas.
+            Max(1, 4, 8, 4); // Max(new int[4] {1, 4, 8, 4}); 
             Max(); // Max(new int[0]);
             Max(null); // Max(null);
             Max(numbers);
@@ -45,7 +49,7 @@ namespace Chapter_11_Tablica_parametrów_params
             return min;
         }
 
-        // Nie trzeba recznie tworzyc tablicy, kompilator sam zrobi tablice o odpowiednim rozmiarze oraz typie. 
+        // Nie trzeba recznie tworzyc tablicy, kompilator sam zrobi tablice o odpowiednim rozmiarze oraz typie danych. 
         static int Max(params int[] numbers)
         {
             //DOTO: znajdz maxa
@@ -54,52 +58,95 @@ namespace Chapter_11_Tablica_parametrów_params
 
         // Kwestie warte uwagi związene z tablica parametrów typu 'params':
 
-        //1. Nie mozna używac 'params' dla tablic wielowymiarowych
+        //1. Nie mozna używac 'params' dla tablic wielowymiarowych ale możemy podać taką tablice jak argument metody. przykład 'Drawer4'
         // błąd kompilacji
-        //  static int Max(params int[,] numbers)
+        // static int Max(params int[,] numbers)
 
-        //2. Nie można przeciązyc metody wyłącznie dodając słowo kluczowe 'params'. Słowo 'params' nie jest częścią sygnatury metody.
+        //2. Nie można przeciążyż metody wyłącznie dodając słowo kluczowe 'params'. Słowo 'params' nie jest częścią sygnatury metody.
         // błąd kompilacji
-        //static int Max(int[] numbers)
-        //static int Max(params int[] numbers) // dla kompilatora jest to to samo.
+        // static int Max(int[] numbers)
+        // static int Max(params int[] numbers) // dla kompilatora jest to to samo.
 
         //3. Nie moga być używane z modyfikatorami ref i out.
 
         //4. Tablica parametrów typu 'params' muszą być ostatnim parametrem metody.
         // błąd kompilacji
-        //static int Max(params int[] numbers, int index)
+        // static int Max(params int[] numbers, int index)
 
-        //5. Metody, które nie używają 'params' w parametrze mają wyższy priorytet od tych które używają.
+        //5. Metody, które nie używają 'params' w parametrze mają wyższy priorytet od tych które używają 'params'.
         // static int Max(int pierwsza, int druga, int trzecia)
         // static int Max(params int[] numbers)
         // Druga metoda wykona się w każdym innym przypadku gdy ilość parametrów bedzie różna od trzech.
 
 
-        static void DifferentAmountDifferentType()
+        static void ParameterInMethodDifferentAmountDifferentType()
         {
-            Drawer("skarpetki", 1, 'T');
             // Dobrym przykładem takiej metody jest Console.WriteLine();
             // Console.WriteLine(string format, params object[] arg);
-            Console.WriteLine("{0} dziennie {1} dostarcza duzo wit. {2}.", 1, "herbata", 'C');
+            Console.WriteLine("{0} dziennie {1} dostarcza duzo wit. {2}.", 1, "cytryna", 'C');
 
+            Drawer("skarpetki", 1, 'T');
             Drawer(new int[] { 1, 2, 5 }, new string[] { "Pen", "Pencil" },
                 new []{ new { Name = "gloves", price = 10}, new { Name = "scarf", price = 20 } });
+
+            Drawer(new int[1] { 4 });
+            Drawer2(new object[1] { 4 });
+            Drawer3(4);
+            Drawer4(new int[2, 3]);
+
+            //Note: Tablica parametrów 'params' zapisze argumenty do tablicy, aby pobrać wartość należy uzyć indexu, things[0], things[1], itd.
         }
 
-        //Różna ilość parametrów o różnych typach. params object[]
+        // Różna ilość parametrów o różnych typach. params object[]
         // Wszystkie parametry zostaną rzutowane do typu object.
         static void Drawer(params object[] things)
         {
             //TODO: zrób porządek w szufladzie
+            Console.WriteLine(things.ToString()); // wynik: object[];
+            foreach (object ob in things)
+            {
+                Console.WriteLine(ob.ToString() ); // wynik: int[];
+                foreach (object o in ob as int[])
+                {
+                    Console.WriteLine(o); // wynik: 4
+                }
+            }
+        }
+
+        static void Drawer2(object[] things)
+        {
+            Console.WriteLine(things.ToString()); // wynik: int[];
+            foreach (object ob in things)
+            {
+                Console.WriteLine(ob.ToString()); // wynik: 4
+            }
+        }
+
+        static void Drawer3(object things)
+        {
+            Console.WriteLine(things); // wynik: 4
+        }
+
+        static void Drawer4(params object[] things)
+        {
+            Console.WriteLine(things[0]);  //  wynik: int[,];
+            int[,] multiTab = things[0] as int[,];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.WriteLine(multiTab[i, j]); // wynik: 0
+                }
+            }
         }
 
         static void OptionalParameterAndParams()
         {
-            //Wykona się metoda z parametrami opcjionalnymi
+            // Wykona się metoda z parametrami opcjionalnymi
             Sum();
             Sum(1);
             Sum(1,2,3,4);
-            //Wykona się metoda z tablicą parametrów typu 'params'
+            // Wykona się metoda z tablicą parametrów typu 'params'
             Sum(1, 2, 3, 4, 5);
         }
 
