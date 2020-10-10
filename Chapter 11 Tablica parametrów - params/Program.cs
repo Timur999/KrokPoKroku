@@ -97,16 +97,15 @@ namespace Chapter_11_Tablica_parametrów_params
             //Note: Tablica parametrów 'params' zapisze argumenty do tablicy, aby pobrać wartość należy uzyć indexu, things[0], things[1], itd.
         }
 
-        // Różna ilość parametrów o różnych typach. params object[]
+        // Różna ilość parametrów o różnych typach - "params object[]"
         // Wszystkie parametry zostaną rzutowane do typu object.
         static void Drawer(params object[] things)
         {
-            //TODO: zrób porządek w szufladzie
             Console.WriteLine(things.ToString()); // wynik: object[];
             foreach (object ob in things)
             {
                 Console.WriteLine(ob.ToString() ); // wynik: int[];
-                foreach (object o in ob as int[])
+                foreach (int o in ob as int[])
                 {
                     Console.WriteLine(o); // wynik: 4
                 }
@@ -116,9 +115,9 @@ namespace Chapter_11_Tablica_parametrów_params
         static void Drawer2(object[] things)
         {
             Console.WriteLine(things.ToString()); // wynik: int[];
-            foreach (object ob in things)
+            foreach (int ob in things)
             {
-                Console.WriteLine(ob.ToString()); // wynik: 4
+                Console.WriteLine(ob); // wynik: 4
             }
         }
 
@@ -129,7 +128,7 @@ namespace Chapter_11_Tablica_parametrów_params
 
         static void Drawer4(params object[] things)
         {
-            Console.WriteLine(things[0]);  //  wynik: int[,];
+            Console.WriteLine(things[0]);  //  wynik: int[,];  Console.WriteLine wykona metode 'ToSting()' na obiekcie.
             int[,] multiTab = things[0] as int[,];
             for (int i = 0; i < 2; i++)
             {
