@@ -16,9 +16,9 @@ namespace Chapter_12_Dziedziczenie.Animals
         public void PutSaddle() { }
 
         // Słowo kluczowe 'new' w tym przypadku nie eliminuje zjawiska ukrywania.
-        // Jest to informacja: jeśteśmy pewni, że chcemy mieć 2 niezależne metody.
-        // Bez 'new' kod zostanie skompilowany ale z odpowiednim warningiem. 
-        // Metoda Horse.Speaking ukrywa odziedziczoną metode Speaking() z klasy Mammal.
+        // Jest to informacja, że jesteśmy pewni, że chcemy mieć dwie niezależne metody.
+        // Bez słowa kluczowego 'new', kod zostanie skompilowany ale z odpowiednim warningiem. 
+        // Metoda Horse.MyName() ukrywa odziedziczoną metode MyName() z klasy Mammal.
         public new void MyName() // Metoda ukryta.
         {
             Console.WriteLine("Mieszkam w stajni.");
@@ -36,8 +36,8 @@ namespace Chapter_12_Dziedziczenie.Animals
             Console.WriteLine("Pije pije pije");
         }
 
-        // Jawnie zdefiniowanie metody przesłonętej, że bedzie przesłaniana przez klase pochodną.
-        // Nie trzeba tego robic. Metodde override również możemy przesłaniać.
+        // Jawnie zdefiniowanie metody przesłonętej, jako virtualna.
+        // Nie trzeba tego robic. Metodę override również możemy przesłaniać.
         public virtual void Breathing()
         {
             Console.Write("Wdech");

@@ -13,9 +13,9 @@ namespace Chapter_12_Dziedziczenie.Animals
         }
 
         // Metoda która w założeniu ma zostać przesłonieta nazywamy metodą 'wirtualną'.
-        // 1. Metoda 'wirtualna' nie mogą byc prywatne.
-        // 2. Sygnatury metod virtual i override muszą byc identyczne ponadto muszą zwracać wartość tego samego typu.
-        // 3. Jesli metoda w klasa pochodnej nie uzywa overide na metodzie virtualnej to ją ukrywa, przykład klasa Horse.
+        // 1. Metoda 'wirtualna' nie może być prywatna.
+        // 2. Sygnatury metod virtual i override muszą byc identyczne, ponadto muszą zwracać wartość tego samego typu.
+        // 3. Jeśli metoda w klasa pochodnej nie używa override na metodzie virtualnej to ją ukrywa. Przykład w klasie Horse.
         // 4. Metoda przesłaniająca (zadeklarowana z słowem kluczowym override) niejawnie sama jest wirtualna.
         // Inaczej mówiąc może zostać przesłonięta przez klase pochodną. Istnieje również możliwość zadeklarowania jawnie tej metody.
         public virtual void Speaking()
