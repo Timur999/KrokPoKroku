@@ -19,15 +19,31 @@ namespace Chapter_12_Dziedziczenie.Animals
         // Jest to informacja: jeśteśmy pewni, że chcemy mieć 2 niezależne metody.
         // Bez 'new' kod zostanie skompilowany ale z odpowiednim warningiem. 
         // Metoda Horse.Speaking ukrywa odziedziczoną metode Speaking() z klasy Mammal.
-        public new void Speaking() // Metoda przesłonięta/ukryta.
+        public new void MyName() // Metoda ukryta.
+        {
+            Console.WriteLine("Mieszkam w stajni.");
+        }
+
+        // Wykonuje te same zadanie co metoda virtualna ale w sposób zależny od tej klasy.
+        public override void Speaking() 
         {
             Console.WriteLine("Jestem Koniem ");
         }
 
-        public override void MyName() // Metoda nadpisana.
+        // Nie użycie override na metodzie wirtualnej oznacza, że zostanie ukryta.
+        public void Eating()
         {
-            Speaking();
-            base.MyName();
+            Console.WriteLine("Pije pije pije");
         }
+
+        // Jawnie zdefiniowanie metody przesłonętej, że bedzie przesłaniana przez klase pochodną.
+        // Nie trzeba tego robic. Metodde override również możemy przesłaniać.
+        public virtual void Breathing()
+        {
+            Console.Write("Wdech");
+            Console.Write("Uplyneło 5 sekund");
+            Console.Write("Wydech");
+        }
+
     }
 }
