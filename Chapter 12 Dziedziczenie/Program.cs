@@ -85,7 +85,7 @@ namespace Chapter_12_Dziedziczenie
         public static void ExtendedMethods()
         {
             int i = 10;
-            // Metoda static int Negate(this int i) jest metoda rozszerzającą, zefiniowaną w kasie statycznej Extension.
+            // Metoda Negate() jest metoda rozszerzającą, zefiniowaną w kasie statycznej Extension. static int Negate(this int i) 
             Console.WriteLine(i.Negate());
         }
     }
