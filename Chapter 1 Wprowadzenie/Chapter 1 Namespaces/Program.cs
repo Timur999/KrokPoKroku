@@ -26,7 +26,8 @@
  * i musi być używana przez wszystkie aplikacje korzystające z platformy .NET Framework.
  */
 
-// Przestrzenie nazw to poprostu kontenery dla identyfikatorów np. nazwy klas.
+// Przestrzenie nazw to poprostu kontenery dla identyfikatorów. 
+// Identyfikatory to nazwy do identyfikowania różnych elementów programu np. nazwy klas, przestrzeni nazw, metod, zmiennych.
 namespace Chapter_1_Namespaces
 {
     /* Dyrektywa using pozwala korzystac z klas i elementów zawartych w przestrzeni nazw bez wpisywania pełnej nazwy.
