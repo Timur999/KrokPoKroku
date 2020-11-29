@@ -13,6 +13,7 @@ namespace Chapter_2_Zmienne_i_operatory
     {
         static void Main(string[] args)
         {
+            //TODO: dodac cos o zmiennnych const, readonly itd.
         }
 
         // Zasady nazywania zmiennych
@@ -125,5 +126,8 @@ namespace Chapter_2_Zmienne_i_operatory
            
             // var myVariable; błąd, kompilator nie może określić typu danych.
         }
+
+        //TODO: dodac metode objasnianaca jak działaja zmiennnych const, readonly itd.
+        // (Na jakim etapie wykonywania programu czy kompilacji sa wypełniane) itd.
     }
 }
