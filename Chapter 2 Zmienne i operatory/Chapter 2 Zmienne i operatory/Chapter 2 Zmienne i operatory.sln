@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 2 Zmienne i operatory", "Chapter 2 Zmienne i operatory\Chapter 2 Zmienne i operatory.csproj", "{B1DC81F0-30FD-4800-A9F5-AF3A306A7AB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1DC81F0-30FD-4800-A9F5-AF3A306A7AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1DC81F0-30FD-4800-A9F5-AF3A306A7AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1DC81F0-30FD-4800-A9F5-AF3A306A7AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1DC81F0-30FD-4800-A9F5-AF3A306A7AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6A37A7A-72E2-43B7-84FA-69EA992FAF8D}
+	EndGlobalSection
+EndGlobal
