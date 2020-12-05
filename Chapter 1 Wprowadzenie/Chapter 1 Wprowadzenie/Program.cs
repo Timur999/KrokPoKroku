@@ -30,3 +30,22 @@ namespace Chapter_1_Wprowadzenie
         // W folderze projektu znajduje się folder bin w tym folderze znajduje się wykonywalna wersja programu.
     }
 }
+
+//Note: .Net Framework i WinRT są silnie zależne od Modelu COM. (WinRT nie jest częścią .Net Frameworku)
+/* Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe)
+ * (Czyli .Net Framework jest odpowiedzialny za uruchamianie kodu zarządzanego).
+ * .Net Frameworku sklada się z
+ * Bibliotek,
+ * CIL wspólnym językiem pośredniczącym (Common Intermediate Language),
+ * CLR odpowiedzialny jest za dostarczenie/utworzenie wirualnego srodowiska dla uruchomionego programu (kodu),
+ * Konwertuje instrukcje w formacie CIL na język zrozumiały dla maszyny,
+ * Kompilator wysokiego poziomu standardowo C++/CLI, C#, Visual Basic .NET, J#,
+ * Kompilator just-in-time kodu zarządzanego wraz z debuggerem,
+ * I pewnie jeszcze z czegoś
+ */
+/* WinRT jest to poprostu API który oferuje różne funkcje. Można też sobie to tłumaczyc jako zestaw biblioteki.
+ * WinRT zapewnia wieloplatformowość. Aplikacje Uniwersal Windows Platform (UWP) wykorzystuje WinRT do działania.
+ * WinRT głownym zadaniem jest uproszczenie zintegrowania w jedną aplikacje składników (bibliotek) napisanych w różnych jezykach programowania.
+ * (Z WinRT mogą korzystać nie tylko aplikacje zarządzane ale takze natiwne, które są kompilowane bezpośrednio do kodu maszynowego.)
+ * Lista funkcji oferowane przez WinRT znajdziemy tutaj: https://docs.microsoft.com/en-us/uwp/api/?redirectedfrom=MSDN
+ */
