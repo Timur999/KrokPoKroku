@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{864A2F56-B76A-4846-A113-EA0461CCB37E}</ProjectGuid>
+    <ProjectGuid>{C03D8F1C-76A5-4E39-8D70-EAA64A104AEB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Chapter_4_Instrukcje_Wyboru</RootNamespace>
-    <AssemblyName>Chapter 4 Instrukcje Wyboru</AssemblyName>
+    <RootNamespace>Chapter_5_Petle</RootNamespace>
+    <AssemblyName>Chapter 5 Petle</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,8 +50,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="Recources\operatory.png" />
+    <Content Include="Resources\Tekst.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
