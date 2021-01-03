@@ -8,7 +8,6 @@ namespace Classies.Model
 {
     class Point
     {
-        // pola w klasie są inicjowane domyślną wartością: 0, false, null zależnie od typu pola. 
         // pola public powinny zaczynać się z Dużej litery 
         public int Longitude;
 
