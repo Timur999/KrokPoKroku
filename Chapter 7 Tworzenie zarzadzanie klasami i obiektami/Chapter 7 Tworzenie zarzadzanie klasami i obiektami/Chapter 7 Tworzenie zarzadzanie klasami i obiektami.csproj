@@ -61,9 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Kwadrat.cs" />
+    <Compile Include="Model\Mapa.cs" />
     <Compile Include="Model\Okrag.cs" />
     <Compile Include="Model\MyMath.cs" />
-    <Compile Include="Model\Point.cs" />
+    <Compile Include="Model\Punkt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

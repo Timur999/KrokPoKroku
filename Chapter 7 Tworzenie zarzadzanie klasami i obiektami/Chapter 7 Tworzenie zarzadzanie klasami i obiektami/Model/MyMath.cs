@@ -9,7 +9,7 @@ namespace Classies.Model
      */
     static class MyMath
     {
-        public static Point Point;
+        public static Punkt Point;
 
         /* 'const' również jest polem statycznym.
          * Polami const mogą być wyłącznie zmienne niereferencyjne t.j. (liczbowe(int, float, ..), string, typy wyliczeniowe (enum)) 
@@ -29,7 +29,7 @@ namespace Classies.Model
          */
         static MyMath()
         {
-            Point = new Point(0, 0);
+            Point = new Punkt(0, 0);
         }
     }
 }
