@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chapter_4_Instrukcje_Wyboru.Model;
+using System;
 
 namespace Chapter_4_Instrukcje_Wyboru
 {
@@ -66,6 +67,49 @@ namespace Chapter_4_Instrukcje_Wyboru
 
             //Note: W C# kompilator wymaga aby instrukcje case zakończyc dodając break lub return lub throw.
         }
+
+        static void InstrukcjaSwitchTypDanych()
+        {
+            Okrag c = new Okrag(11);
+            Kwadrat s = new Kwadrat(14);
+            Trojkat t = new Trojkat(17);
+
+            object o = t;
+            if (o is Kwadrat mojKwadrat) // Zasieg zmiennej 'mojKwadrat' nie wykracza poza ifa ani case.
+            {
+                Console.WriteLine(mojKwadrat.DlugoscBoku);
+            }
+            else if (o is Okrag mojOkrag)
+            {
+                Console.WriteLine(mojOkrag.Promien);
+            }
+
+            switch (o) // Selectory 'case' sprawdzają typ danych obiektu o. Działanie takie same jak za pomocą powyższej instruckji if.
+            {
+                case Okrag circle:
+                    Console.WriteLine("o is circle {0}", circle.ToString());
+                    break;
+                case Kwadrat square:
+                    Console.WriteLine("o is square {0}", square.ToString());
+                    break;
+                case Trojkat triangle when triangle.DlugoscBoku > 1000:
+                    Console.WriteLine("Big triangle {0}", triangle.DlugoscBoku);
+                    break;
+                case Trojkat triangle:
+                    Console.WriteLine("o is triangle");
+                    break;
+            }
+
+            switch (o) // Selectory 'case' obsługują również wyrażenie 'when'
+            {
+                case Trojkat triangle when triangle.DlugoscBoku > 1000:
+                    Console.WriteLine("Big triangle {0}", triangle.DlugoscBoku);
+                    break;
+                case Trojkat triangle when triangle.DlugoscBoku > 10:
+                    Console.WriteLine("Small triangle {0}", triangle.DlugoscBoku);
+                    break;
+            }
+        }
     }
 
     enum Napoje
@@ -75,4 +119,5 @@ namespace Chapter_4_Instrukcje_Wyboru
         WodaZcytryna,
         WodaPoOgorkach
     }
+
 }
