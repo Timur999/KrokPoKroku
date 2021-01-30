@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Circle.cs" />
-    <Compile Include="Model\Pass.cs" />
-    <Compile Include="Model\Square.cs" />
-    <Compile Include="Model\Triangle.cs" />
+    <Compile Include="Model\Okrag.cs" />
+    <Compile Include="Model\Szuflada.cs" />
+    <Compile Include="Model\Punkt.cs" />
+    <Compile Include="Model\Kwadrat.cs" />
+    <Compile Include="Model\Trojkat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

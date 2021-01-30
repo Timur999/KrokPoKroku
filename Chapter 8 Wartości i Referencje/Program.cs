@@ -1,129 +1,158 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using valuesAndReferences.Model;
 
 namespace valuesAndReferences
 {
-    // Typy wartościowe mają stały rozmiar.
-    // Gdy deklarujemy zmienną typu wartościowego to kopilator rezerwuje na stosie odpowiedni rozmiar pamięci aby pomieścic wartość danego typu np. int zajmuje 4 bajty (32bity).
-    // Typy referencyjne
-    // Gdy deklarujemy zmienna typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby zapisac adres (referencje) do obiektu.
-    // Faktyczny przydział pamięci nastąpi na stercie (ang. heap) dopiero podczas tworzenia obiektu za pomocą słowa kluczowego 'new' oraz zostanie przypisana od zmiennej referencja.
-    // Stos - System przydziela każdej aplikacji własny stos.
-    // Podczas wykonywania metody pamieć potrzebna do przechowywania parametrów funkcji oraz lokalnych zmiennych funkcji jest rezerwowana na stosie.
-    // Po zakończeniu metody lub przy zgłoszeniu wyjątku ta pamięć jest zwalniana.
+    /* Typy wartościowe mają stały rozmiar.
+     * Gdy deklarujemy zmienną typu wartościowego to kopilator generuje kod, który rezerwuje na stosie odpowiedni rozmiar pamięci aby pomieścic wartość danego typu.
+     * np. int zajmuje 4 bajty (32bity) więc kompilator alokuje 4 bajty pamięci. (Cały ten proces ma miejsce na etapie Kompilacji)
+     * Typy referencyjne
+     * Gdy deklarujemy zmienna typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby móc pomieścić adres do obiektu (inaczej mówiąc referencje, odwołanie do)
+     * (Adres określa właściwe położenia obiektu w pamięci)
+     * Faktyczny przydział pamięci nastąpi na stercie (ang. heap) dopiero podczas tworzenia obiektu za pomocą słowa kluczowego 'new', a następnie zostanie przypisana referencja od zmiennej na stosie. (Inicjalizacja)
+     * Stos - System przydziela każdej aplikacji własny stos.
+     * Podczas wykonywania metody pamieć potrzebna do przechowywania parametrów funkcji oraz lokalnych zmiennych funkcji jest rezerwowana na stosie.
+     * Po zakończeniu metody lub przy zgłoszeniu wyjątku ta pamięć jest zwalniana.
+    */
+
     class Program
     {
         static void Main(string[] args)
         {
-            CopyAndPassRefToObject();
-            ConditionalNullOperator();
-            NullableVariable();
-            RefAndOutParameterType();
-            SystemObjectClass();
-            Boxing();
-            UnBoxing();
-            SaveCastingOperatorIsAndAs();
-            SwitchStatement();
+
+            KopiowanieInicjalizowanieZmiennych();   // Kopiowanie/Inicjalizowanie zmiennych referencyjnych oraz wartościowych. 
+            PrzekazywanieZmiennychhDoFunkcji();     // Do funkcji trawia wartość ze stosu. 
+            GarbageCollection();
+            OperatorWarunkowyNull();
+            ZmienneNullowalne();
+            ParametryRefOut();                      // Funkcja nie tworzy kopii zmiennych tylko pracuje na oryginale. 
+            ZarzadzaniePamieciaKomputera();
+            KorzystanieZeStosuIsterty();
+            KlasaSystemObject();                    // Zmienna referencyjna typu object może przechowywać referencje do wszystkich typów ref. 
+            BoxingOpakowywanie();                   // Przekopiowanie wartości ze zmiennej wartościowej do zmiennej referencyjnej.
+            UnBoxingRozpakowywanie();
+            Rzutowanie();
+            BezpieczneRzutowanieDanych();           // Operatory 'is' oraz 'as'
+            InstrukcjaSwitch();
+            WskaznikiOrazKodNiezabezpieczony();
+
+
             Console.ReadKey();
         }
 
-        static void CopyAndPassRefToObject()
+        static void KopiowanieInicjalizowanieZmiennych()
         {
-            WrappedInt wi = new WrappedInt();
-            Pass.Reference(wi); // Przekazujemy referencje do obiektu 'wi'. Do funkcji zawsze trawia wartość ze stosu.
+            /* Kopiowanie/Inicjalizowanie zmiennych referencyjnych oraz wartościowych. */
 
-            // Kompilator rezerwuje pamiec i przekazuje referencje do zmiennej
-            WrappedInt wi2 = new WrappedInt();
+            int a; // Rezerwowana jest pamięć na stosie aby pomieścić wartość typu int (4 bajty).
+            Okrag o; // Rezerwowana jest pamięć na stosie aby pomieścić referencje do obiektu.
 
-            //Garbage collection 
-            // Nadpisujemy referencje, do poprzedniego miejsca w pamięci żadna zmienna już się nie odwołuje więc Garbage collection odzyskuje zaalokowaną pamięc.
-            // Ten proces jest kosztowny czasowo-sprzętowo.
-            wi2 = wi;
-            // Dobrą praktyką jest aby przypisywać/kopiować referencje do zmiennej gdy nie zawiera jeszcze żadnej referencji.
-            WrappedInt wi3 = null;
-            if (wi3 == null)
-            {
-                wi3 = wi;
-            }
+            a = 13; // Instrukcja przypisania powoduje skopiowanie tej wartości do zaalokowanego wcześniej bloku pamięci.
+            o = new Okrag(); // Tworzy obiekt na stercie i przypisuje referencje na stosie do zmiennej o.
+        }
+
+        static void PrzekazywanieZmiennychhDoFunkcji()
+        {
+            Olowek olowek = new Olowek();
+            // Do zmiennej PrzekazReferencje trafia referencja do okiektu ołówek, a nie cały obiekt. Następnie funkcja stworzy kopie obiektu na podstawie przekazanego argumentu. (wiecej niżej w ParametryRefOut())
+            Szuflada.PrzekazReferencje(olowek);
 
             // Note: Do funkcji zawsze trawia wartość ze stosu.
         }
 
-        static void ConditionalNullOperator()
+        static void GarbageCollection()
         {
-            // Operator warunkowy wartości null (?)
-            Pass p = null;
+            //Garbage collection 
+            Olowek olowek = new Olowek();
+            Olowek grubyOlowek = new Olowek();  // Kompilator rezerwuje pamiec i przekzuje referencje do zmiennej
+            grubyOlowek = olowek; // Nadpisujemy referencje, do poprzedniego miejsca w pamięci, żadna zmienna już się nie odwołuje więc Garbage collection odzyskuje zaalokowaną pamięc.
+                                  // Ten proces jest kosztowny czasowo-sprzętowo.
 
-            // Operator warunkowy null przed uzyciem metody instancji sprawdza czy dany obiekt/instancja nie jest null`em.
-            // Jeśli jest null`em to dana metoda NIE zostanie wykonana. 
 
-            // W tym przypadku instrukcja zostanie pominięta.
-            Console.WriteLine($"p value is: {p?.ToString()}");  // Wyswietli się "p value is:" |  Console.WriteLine($"p value is: {null}");
-
-            string stringValue = p?.ToString(); // Nie zostanie zgłoszony wyjątek. Do zmiennej stringValue przypisze nulla  
-
-            // OtherObject jest null`em
-            p = new Pass();
-            int? intValue = p.OtherObject?.GetIntegerValue();  //  Do zmiennej intValue przypisze nulla           
+            // Dobrą praktyką jest aby przypisywać/kopiować referencje do zmiennej gdy nie zawiera jeszcze żadnej referencji. 
+            Olowek cienkiOlowek = null; // null jest to referencja, która nie wskazuje na żaden konkretny obiekt.
+            if (cienkiOlowek == null)
+            {
+                cienkiOlowek = olowek;
+            }
+        }
+        static void OperatorWarunkowyNull()
+        {
+            /* Operatory warunkowe wartości null '?'. 
+             * Umożliwia sprawdzenie czy wartość zmiennej == null przed użyciem metody instancji. Gdy obiekt jest nullem to metoda nie zostanie wykonana.
+             * Nie zostanie również zgłoszony wyjątek 'NullReferenceException'. Poprostu bedzie nullem. (bool true = p?.ToString() == null;)
+            */
+            Szuflada szuflada = null;
+            szuflada?.PokazCoMaszWSrodku();
+            Console.WriteLine($"p value is: {szuflada.ToString()}");  // Wyswietli się "p value is:" |  Console.WriteLine($"p value is: {null}");
+            string wartoscTekstowa = szuflada?.ToString(); // Nie zostanie zgłoszony wyjątek. Do zmiennej wartoscTekstowa przypisze nulla         
         }
 
-        static void NullableVariable()
+        static void ZmienneNullowalne()
         {
-            // Zmienne Nullowalne (Typy danych dopuszczające zapis wartości null). Zmienne Nullowalne są typu referencyjnego.
-            int? a = null;
+            /* Typy danych dopuszczające zapis wartości null.
+             * Wartość null jest przydatna ponieważ pozwala inicjiować zmienne referencyjne wartością domyślną, ale wartość null sama jest referencją i dlatego nie można jej
+             * przypisać do zmiennej wartościowej. C# umożliwia jednak przypisanie null do zmiennej nullowalnej. Zmienna nullowalna (ang. nullalbe value type) najprościej mówiąc
+             * jest to zmienna która była typu wartościowego i umożliwia przypisanie do niej wartości null. 
+             * np. int ? nullowalna;
+             * Zmienne Nullowalne są typu referencyjnego posiadają 2 właściwości: 
+             * bool b = nullowalna.HasValue; - Sprawdza czy zmienna 'nullowalna' posiada wartość różną od null.
+             * int v = nullowalna.Value; - Zwraca wartość typu prostego jeśli istnieje.
+            */
 
-            // Zmienne Nullowalne posiadają 2 właściwości:
-            bool b = a.HasValue; // Sprawdza czy zmienna 'a' posiada wartość.
-            int v = a.Value; // Zwraca wartość typu prostego jeśli istnieje.
+            int? i = null;
+            int j = 99;
+            i = 100;
+            i = j;
 
-            // Pass? objPass = null; Błąd kompilacji
-            // Zmienne referencyjne nie można przerobić na Zmienną Nullowalną gdyż do nich zawsze można przypisać nulla. Zmienne referencyjne nie posiadają tych 2 własciwości.
-
-            //Note: Zmienne Nullowalne są typu referencyjnego.
+            /* Nie można jednak przypisać wartość zmiennej nullowalnej do zmiennej typu wartościowego.
+             * j = i; instrukcja nieprawidłowa.
+             * Oznacza to, że nie można przekazywać zmiennej nullowalnej jako parametr fukncji która przyjmuje zwykły typ wartościowy.
+             * Nie można zrobić zmiennej nullowalenj ze zmiennej referencyjnej. Zmienne referencyjne nie posiadają także tych 2 własciwości, które zawierają zmienne nullowalne.
+             * Szuflada? objSzuflada = null; instrukcja nieprawidłowa.
+             */ 
         }
 
-        static void RefAndOutParameterType()
+        static void ParametryRefOut()
         {
-            // Modyfikatory ref i out powodują, że parametry funkcji stają się aliasem/przedłużeniem jej argumentu. Funkcja nie tworzy kopii tylko pracuje na oryginale.
+            /* Normalnie metoda tworzy kopie przekazanych argumentów bez różnicy czy argumentami są zmienne typu wartościowego czy referencyjnego. 
+             * Z modyfikatorami 'out' 'ref' parametry funkcji stają się aliasem/przedłużeniem jej argumentu. (Metoda nie tworzy kopii zmiennych tylko pracuje na oryginale)
+             */
 
-            WrappedInt wrappedInt = new WrappedInt(10);
-            int iValue = 4;
-            ChangeValue(wrappedInt, iValue); // zmienna przekazana do metody nazywamy argumentem.
-            Console.WriteLine($"{wrappedInt.Value}, {iValue}"); // 14, 4
-            ChangeValue(ref wrappedInt, ref iValue);
-            Console.WriteLine($"{wrappedInt.Value}, {iValue}"); // 1, 9
+            /* Modyfikator 'ref' 
+             */
+            Olowek olowek = new Olowek(10);
+            int liczba = 4;
+            ZmianaWartosci(olowek, liczba); // zmienna która została przekazana do metody nazywamy argumentem.
+            Console.WriteLine($"{olowek.Grubosc}, {liczba}"); // 14, 4
+            ZmianaWartosci(ref olowek, ref liczba);
+            Console.WriteLine($"{olowek.Grubosc}, {liczba}"); // 1, 9
 
-            // Modyfikator 'out' umożliwia przekazanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem.
-            // W takiej funkcji musimy przypisać wartość do tego argumentu.
+            /* Modyfikator 'out' 
+             * Umożliwia przekazywanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem. W takiej funkcji musimy przypisać wartość do tego argumentu.
+             */
             int arg;
             DoIncrement(out arg);
-
-            //Note: Z modyfikatorami 'out' 'ref' parametry funkcji stają się aliasem/przedłużeniem jej argumentu.
-            // Metoda nie tworzy kopii zmiennych tylko pracuje na oryginale.
         }
 
-        static void ChangeValue(WrappedInt wrappedInt, int iValue)
+        static void ZmianaWartosci(Olowek olowek, int liczba)
         {
             // Do funkcji trafia wartość ze stosu, następnie funkcja tworzy zmienną tego samgo typu i o tej samej wartości (kopie).
-            wrappedInt.Value = 14;
-            iValue = 9;
+            olowek.Grubosc = 14;
+            liczba = 9;
 
             //Note: W tym przypadku metoda utworzy 2 kopie.
         }
 
-        static void ChangeValue(ref WrappedInt wrappedInt, ref int iValue) 
+        static void ZmianaWartosci(ref Olowek olowek, ref int liczba) 
         {
             // Funkcja nie tworzy kopii.
 
-            wrappedInt.Value = 99;
+            olowek.Grubosc = 99;
 
             // Zmieniamy wartość na stosie.
-            wrappedInt = new WrappedInt(1); 
-            iValue = 9;
+            olowek = new Olowek(1);
+            liczba = 9;
 
             //Note: Funkcja nie tworzy kopii zmiennych tylko pracuje na oryginale.
         }
@@ -137,121 +166,260 @@ namespace valuesAndReferences
             param++;
         }
 
-        static void SystemObjectClass()
+        static void ZarzadzaniePamieciaKomputera()
+        {
+            /* W pamięci komputera są przechowywane uruchomione aplikacje oraz ich dane z któch korzystają (zmienne).
+             * Pamięć jest podzielona na 2 części: Stos (ang. stock) i Sterta (ang. heap).
+             * Na stosie zapisujemy zmienne wartościowe oraz referencje do zmiennych referencyjnych.
+             * Na stercie przechowywane są zmienne referencyjne.
+             */
+
+            /* Podczas wywoływania meody, parametry oraz zmienne lokalne tej metody (wart. oraz ref.) są zawsze zapisywane na stosie. Po zakonczeniu metody (z powodu poprawnego zwrotu lub w wyniku wystąpienia wyjątku) 
+             * pamięć przydzielona na stosie dla zmiennych wartościowych jest zwalniana i bedzie mogła zostać użyta odrazu.
+             * Cykl życia zmiennych konczy się pod koniec metody a zaczyna na początku. Taki sam cykl życia dotyczy wszystkich zmiennych zdefiniowanych w nawiasach klamrowych {}.
+             */
+            int a = 9;
+            while(a == 10){
+                int i = 0; // w tym miejscu zmienna i zostanie utworzona na stosie.
+            }
+            /* W tym miejscu zmienna 'i' zostanie usunięta ze stosie. */
+
+           /* Zmiennych referencyjne, do utworzenia instancji używanmy słowa kluczowego new, pamięć potrzebna do przechowywania odpowiednie dużego obiektu jest rezerwowana na stercie.
+            * Następnie uruchomi się konstruktor, który wypełni surowy blok pamięci wartościami.
+            * Pamięć zwalniana jest, gdy w programie zniknie ostatnie odwołania (referencja) do tego bloku pamięci (obiektu). (Choć nie koniecznie może to nastąpić od razu.)
+            * Sposób odzyskiwania pamięci ze sterty jest omówiony w rozdziale 14.
+            * Obiekty, które 'żyją' na stercie mają bardziej nieokreślony czas życia.
+            */
+
+            /* Wszystkie zmienne wart. są przechowywane na stosie, wszystkie zmienne ref. są przechowywane na stercie a ich referencje zapisujemy na stosie. Zmienne nullowalne są typu referencynego. */
+
+            /* Stos jest uporządkowana jak stos pudełek. Gdy wywołujemy metode dokładmay pudełka na szczyt, a pod koniec metody zdejmujemy pudełka.
+             * Sterta przypomina rozrzucone pudełka po całym pokoju. Kazde pudełko ma swoją etykietę, która informuje czy pudełko jest zajęte/używane. 
+             * Podczas twoarzenia obiektu środowisko uruchomieniowe zapisuje obiekt do odpowiedniego pudełka. Odwołanie do obiektu (referencja) zostanie zapisana na stosie.
+             * Gdy zniknie ostatnie odwołanie do obiektu, to srodowisko uruchomieniowe oznaczy te pudełko jako wolne po pewnym czasie bedzie można zapisać nowy obiekt.
+             */
+
+            /* Note: gdy zmienna ref. posiada zmienne wart. to po utworzeniu takiego obiektu zmienne te nie są zapisywane na stosie tylko jest to część obiektu i jest zapisana na stercie. */
+        }
+
+        static void KorzystanieZeStosuIsterty()
+        {
+            Metoda(42);
+            void Metoda(int parameter)
+            {
+                /* Rezerwujemy pamięć na stosie, aby pomieścić zmienną typu int. (parametr metody)*/
+
+                /* Rezerwujemu pamięć na stosice, aby pomieścić referencje. */
+                Okrag o;
+
+                /* Rezerwujemy pamięć na stercie, aby pomieścić obiekt klasy Okrąg. Wywoływany jest konstruktor, który przekształca surowy blok pamięci w obiekt klasy Okrąg. Zapisujemy ref na stos. */
+                o = new Okrag(parameter);
+
+               /* Po zakończeniu metody, zmienne o oraz parametr wychodzą poza zakres i pamięć przydzielona do nich zostanie zwrócona na stos. Środowisko uruchomieniowe odnotuje fakt, że żadna zmienna nie wskazuje 
+                * na blok pamięci przechowujący obiekt o i po pewnym czasie pamięć zostanie zwrócona na stertę. (więcej w rozdziale 14)
+                */
+            }
+
+            /* Note: Ilość dostępnej pamięci na stercie jest ograniczona. Gdy dojdzie do wyczerpania zostanie zgłoszony wyjątek OutOfMemoryException. */
+        }
+
+        static void KlasaSystemObject()
         {
             // Zmienna typu 'object' moze przechowywać referencje do dowolnego obiektu.
-   
-            WrappedInt w1 = new WrappedInt();
-            object o = w1;
+
+            object obiekt;
+            Olowek olowek = new Olowek();
+            obiekt = olowek;
+
+            Okrag okrag = new Okrag();
+            obiekt = okrag;
 
             //Note: Rekomedowanie jest uzywanie aliasu 'object' zamiast System.Object tak samo jak 'string' zamiast System.String
         }
-        static void Boxing() // Opakowywaniem (ang. Boxing)       
-        {
-            // Opakowywanie zmiennych typu referencyjnego
-            // Zmienne typu 'object' mogą również przechowywać wartości zmiennych typu wartościowego.
-            int value = 13;
 
-            // Środowisko uruchomieniowe alokuje odpowienią ilość pamięci na stercie (ang.heap) aby pomieścić odpowiedni typ danych.
-            // Przekazuje kopię wartości na sterte i przekazuje do niej referencje na stos.
+        static void BoxingOpakowywanie()
+        {
+            /* Chodzi o przekazywanie wartości zmiennej wartościowej do zmiennej referencyjnej. 
+             * Zmienne ref mogą przechowywać wyłącznie odwołania do obiektów na stercie. Dlatego w poniższym przykładzie zostanie utworzony obiekt klasy object i zostanie przekazana wartość ze zmiennej value.
+             * Takie automatycznie kopiowanie wartości ze stosu na sterte nosi nazwę: Opakowywanie ang. Boxing
+             */
+
+            int value = 13;
             object ob = value;
 
+            /*Modyfikacja zmiennej wartościowej nie zmieni wartości na stercie. Są to 2 różne wartośći */
             value++; //14
             ob.ToString(); //13
 
             //Note: Tworzenie zmiennej referencyjnej na podstawie zmiennej wartościowej. Taka operacja nazywa sie opakowywaniem (ang. Boxing)            
         }
-        static void UnBoxing() // Rozpakowywanie
+        static void UnBoxingRozpakowywanie()
         {
-            object obj = 33;
-            // Rzutowanie (ang. cast) zmiennej object z powrotem do zmiennej wartościowej/prostej.
-            // Kompilator generuje kod, który podczas wykonywania programu sprawdza zgodność typów pomiędzy typem zdefinowanym w () a rzeczywistym typem przechowywanym w obiekcie (na stercie).
-            int intValue = (int)obj;
+            /* Pobieranie wartości z opakowanej zmiennej wartościowej wymaga użycia rzutowania (ang. cast). 
+             * Operacja rzutowania przeprowadza konwersje elementu jednego typu na element drugiego typu, ale wcześniej sprawdza, czy taka konwersja może zostać przeprowadzona w sposób bezpieczny.
+             * W nawiasch okrągłych przed zmienną referencyjną należy podać typ wartościowy do którego chcemy rzutować.
+             * Kompilator generuje kod, który podczas wykonywania programu sprawdza zgodność typów pomiędzy typem zdefinowanym w () a rzeczywistym typem przechowywanym w obiekcie (na stercie).
+             * Jeśli typy się zgadzają to mamy do czynienia ze zgodnośćią typów danych i operacja zakonczy się sukseem.
+             * Natomiast jeśli mamy do czynienia z z niezgodnością typów danych to operacja zgłosi wyjątek InvalidCastException
+             */
 
-            // Zostanie skompilowany bez błedu ale w czasie wykonywania zostanie zgloszony wyjątek: InvalidCastException
-            //WrappedInt wrapInt = (WrappedInt)obj;
-            //decimal d1 = (decimal)obj;
 
-            //Uwaga: Nie mylić unboxingu z rzutowaniem typów wartościowych.
-            // Rzutowanie typu wartościowego -- Inna Bajka
-            // Wartość liczbowa 'int' jest mniejszej precyzji niż 'decimal', w takich wypadkach można rzutować 'niejawnie'.  
-            decimal d2 = (decimal)intValue; // Zadziała. Kompilator podpowiada, że '(decimal)' jest niewymagany.
-            decimal d3 = 15.99m;
-            // Rzutowanie decimal do inta. Należy 'jawne' określenie typu danych.
-            int i2 = (int)d3; 
+            /* Zgodność typów danych */
+            int i = 100;
+            object ob = i; // opakowywanie
+            i = (int)ob; // rozpakowywanie
 
-            //Note: Operacje Pakowania i Rozpakowania ze względu na alokowanie dodatkowej pamięci na stercie i dodatkowe instrukcje sprawdzające poprawność typu są bardzo kosztowne sprzętowo
+
+            /* Niezgodność typów danych */
+            /* Zostanie skompilowany bez błedu ale w czasie wykonywania zostanie zgloszony wyjątek InvalidCastException */
+            float f = 100.0f;
+            ob = f; // opakowywanie
+            i = (int)ob; // rozpakowywanie. Wyjątek InvalidCastException
+
+
+            /* Note: Operacje Pakowania i Rozpakowania ze względu na alokowanie dodatkowej pamięci na stercie i dodatkowe instrukcje sprawdzające poprawność typu są bardzo kosztowne sprzętowo.
+             * Opakowywanie ma swoje zastosowanie ale nierozważne jego stosowanie może wpłynąć negatywnie na wydajność. W rozdziale 18 "Klasy ogólne", poznamy alternatywę dla opakowywania.  
+             */
         }
-        static void SaveCastingOperatorIsAndAs()  //Save casting - operator 'is' i 'as'. Bezpieczne rzutowanie
+
+        static void Rzutowanie()
         {
-            // Kompilator nie sprawdza czy typy zmiennych są ze sobą zgodne lecz srodowisko uruchomieniowe (.Net)
+            /* Rzutowanie zmiennych o większej precyzji do zmiennych o mniejszej precyzji musi odbywać się w sposób jawny. */
 
-            WrappedInt wrapInt = new WrappedInt();
-            object obj = new WrappedInt();
+            int i = 100;
+            long l = i; // rzutowanie niejawne 
 
-            // Operator 'is' wykorzystywany jest do sprawdzenia typu obiektu.
-            // Jeśli typ danych zgadza się z typem obiektu znajdującym się na stercie zwróci 'true' jeśli nie 'false'.
-            bool b = wrapInt is WrappedInt; // true
-            b = wrapInt is object; // true
-            b = obj is WrappedInt; //true
+            i = (int)l; // rzutowanie jawne 
+        }
 
-            // SAVE CASTING
-            if (obj is WrappedInt)
+        static void BezpieczneRzutowanieDanych()  //Save casting - operator 'is' i 'as'. 
+        {
+            /* Kompilator nie sprawdza czy typy zmiennych są ze sobą zgodne lecz srodowisko uruchomieniowe (.Net).
+             * W przypadku gdy zostanie zgłoszony wyjątek 'InvalidCastException' należy taki wyjątek przechwycic i obsłużyć,
+             * język C# oferuje dwa przydatne operatory 'is' oraz 'as' do wykonywania operacji rzutowania.
+             */
+
+
+            /* Operator 'is'
+             * Sprawdza czy typ jest zgodny z oczekiwanym.
+             * Operator 'is' posiada 2 argumenty: z lewej strony referencje do obiektu, z prawej strony typ danych.
+             * Jeśli typ danych który jest wskazywany przez referencje jest zgodny z typem przekazanym w argumecie po prawej stonie, operator 'is' zwróci true.
+             */
+            Okrag okrag = new Okrag();
+            object ob = okrag;
+
+            if(ob is Okrag)
             {
-                WrappedInt temp = (WrappedInt)obj; // Operacja bezpieczna
-            }
-            else
-            {
-                WrappedInt temp = null;
+                Okrag okrag1 = (Okrag)ob;       // bezpieczna operacja rzutowania (SAVE CASTING)
+                Console.WriteLine(ob is Okrag); // wynik true;
             }
 
-            // Operator 'as' pełni taką samą role co operacja SAVE CASTING. Równiez posiada 2 arg. po lewej referencje do obiektu na stercie po prawej typ danych.
-            // Środowisko uruchomieniowe w czasie wykonywania programu podejmie próbę rzutowania, gdy sie powiedzie zwróci wartość w przciwnym razie NULL`a.
-            WrappedInt temp2 = obj as WrappedInt; 
-            if(temp2 != null)
+
+            /* Operator 'as'
+             * Pełni taką samą role co operacja SAVE CASTING. Równiez posiada 2 arg. po lewej referencje do obiektu na stercie po prawej typ danych.
+             * Środowisko uruchomieniowe w czasie wykonywania programu podejmie próbę rzutowania, gdy sie powiedzie zwróci wartość w przciwnym razie NULL`a.
+             */
+            Okrag okrag2 = ob as Okrag;
+
+            if (okrag2 != null)
             {
                 // Operacja rzutowania zakonczyła sie sukcesem
             }
 
-            // Note: Więcej na temast 'is', 'as' ma przedstawiac rozdział 12 (Dziedziczenie).
+            /* Note: Więcej na temast 'is' oraz 'as' w rozdziale 12 (Dziedziczenie). */
         }
-        static void SwitchStatement()
+
+        static void InstrukcjaSwitch()
         {
-            Circle c = new Circle(11);
-            Square s = new Square(14);
-            Triangle t = new Triangle(17);
+            Okrag c = new Okrag(11);
+            Kwadrat s = new Kwadrat(14);
+            Trojkat t = new Trojkat(17);
 
             object o = t;
-            if(o is Square mySquare) // Referencja dostepna w obiekcie 'mySquare'. Jej zasieg nie wykracza poza ifa ani case.
+            if(o is Kwadrat mojKwadrat) // Zasieg zmiennej 'mojKwadrat' nie wykracza poza ifa ani case.
             {
-                Console.WriteLine(mySquare.SideLength);
-            }else if(o is Circle myCircle) { }
+                Console.WriteLine(mojKwadrat.DlugoscBoku);
+            }else if(o is Okrag mojOkrag) 
+            {
+                Console.WriteLine(mojOkrag.Promien);
+            }
 
-            switch (o) // case sprawdza typ danych obiektu o.  Działanie jak za pomoca instruckji if powyzej.
+            switch (o) // Selectory 'case' sprawdzają typ danych obiektu o. Działanie takie same jak za pomocą powyższej instruckji if.
             {
-                case Circle circle:
+                case Okrag circle:
                     Console.WriteLine("o is circle {0}", circle.ToString());
                     break;
-                case Square square:
+                case Kwadrat square:
                     Console.WriteLine("o is square {0}", square.ToString());
                     break;
-                case Triangle triangle when triangle.SideLength > 1000:
-                    Console.WriteLine("Big triangle {0}", triangle.SideLength);
+                case Trojkat triangle when triangle.DlugoscBoku > 1000:
+                    Console.WriteLine("Big triangle {0}", triangle.DlugoscBoku);
                     break;
-                case Triangle triangle:
+                case Trojkat triangle:
                     Console.WriteLine("o is triangle");
                     break;
             }
-            switch (o) // case i when
+
+            switch (o) // Selectory 'case' obsługują również wyrażenie 'when'
             {
-                case Triangle triangle when triangle.SideLength > 1000:
-                    Console.WriteLine("Big triangle {0}", triangle.SideLength);
+                case Trojkat triangle when triangle.DlugoscBoku > 1000:
+                    Console.WriteLine("Big triangle {0}", triangle.DlugoscBoku);
                     break;
-                case Triangle triangle when triangle.SideLength > 10:
-                    Console.WriteLine("Small triangle {0}", triangle.SideLength);
+                case Trojkat triangle when triangle.DlugoscBoku > 10:
+                    Console.WriteLine("Small triangle {0}", triangle.DlugoscBoku);
                     break;
             }
         }
-    }
 
+        static unsafe void WskaznikiOrazKodNiezabezpieczony()
+        {
+            /* Wskaźniki (ang. pointer) to zmienna która przechowuje referencje do pewnego elementu w pamięci znajdującego się na stercie lub na stosie (do zmiennych referencyjnych lub wartościowych)
+             * Aby zadeklarowac wskanik potrzebna jest specjalna konstrukcja. 
+             */
+
+            int i = 10;
+            int *w;
+            w = &i;
+
+            /* Modyfikowanie wartości 'i' */
+            *w = 99;
+            Console.WriteLine(i); // wynik 99
+
+
+            /* Niektóre systemy operacyjne (choć nie Windows) nie stosują obowiązkowej kontroli, czy dany wskaźnik nie wskazuje obszaru pamięci nalężącej do innego procesu,
+             * co stwarza potencjalną możliwość podejrzenia poufnych danych. 
+             * W języku C# stworzono zmienne referencyjne zmyślą aby właśnie uniknąć tego rodzaju zagrożenia. 
+             * Jeżeli nadal chcemy korzystać ze wskaźników należy użyć słowa kluczowego 'unsafe'. (oznacza: kod jest potencjalnie niebezpieczny)
+             */
+
+            /* Słowo kluczowe 'unsafe'
+             * Słowem kluczowym 'unsafe' można oznaczyć część kodu lub całą metode.
+             */
+            int x = 9, y = 10;
+            Console.WriteLine($"x: {x}, y: {y}");
+            unsafe
+            {
+                Zaamien(&x, &y); // takie same działanie gdyby argumenty były oznaczone słowem kluczowym ref
+                Zaamien(ref x, ref y);
+            }
+            Console.WriteLine($"x: {x}, y: {y}");
+
+            /* Note: Kompilacja programu z kodem potencjalnie niebezpiecznym oznaczony słowem kluczowym 'usafe' wymaga aby operacja budowania programu wykonana była z włączoną opcją "Allow Unsafe Code".
+             * W Solution Explorer klikamy prawym na projekt i wybieramy propierties, w zakładce Build zaznaczmy dany checkbox.
+             */
+        }
+        private static unsafe void Zaamien(int* a, int* b)
+        {
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+
+        private static void Zaamien(ref int a, ref int b)
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+    }
 }
