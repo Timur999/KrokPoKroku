@@ -7,7 +7,7 @@ namespace valuesAndReferences
      * Gdy deklarujemy zmienną typu wartościowego to kopilator generuje kod, który rezerwuje na stosie odpowiedni rozmiar pamięci aby pomieścic wartość danego typu.
      * np. int zajmuje 4 bajty (32bity) więc kompilator alokuje 4 bajty pamięci. (Cały ten proces ma miejsce na etapie Kompilacji)
      * Typy referencyjne
-     * Gdy deklarujemy zmienna typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby móc pomieścić adres do obiektu (inaczej mówiąc referencje, odwołanie do)
+     * Gdy deklarujemy zmienną typu referencyjnego to kopilator rezerwuje na 'stosie' (ang. stack) niewielką ilość pamięci aby móc pomieścić adres do obiektu (inaczej mówiąc referencje, odwołanie do)
      * (Adres określa właściwe położenia obiektu w pamięci)
      * Faktyczny przydział pamięci nastąpi na stercie (ang. heap) dopiero podczas tworzenia obiektu za pomocą słowa kluczowego 'new', a następnie zostanie przypisana referencja od zmiennej na stosie. (Inicjalizacja)
      * Stos - System przydziela każdej aplikacji własny stos.
@@ -21,7 +21,7 @@ namespace valuesAndReferences
         {
 
             KopiowanieInicjalizowanieZmiennych();   // Kopiowanie/Inicjalizowanie zmiennych referencyjnych oraz wartościowych. 
-            PrzekazywanieZmiennychhDoFunkcji();     // Do funkcji trawia wartość ze stosu. 
+            PrzekazywanieZmiennychhDoFunkcji();     // Do funkcji trawia wartość ze stosu. Potem na jej podstawie tworzona jest kopia zmiennej.
             GarbageCollection();
             OperatorWarunkowyNull();
             ZmienneNullowalne();
@@ -64,10 +64,9 @@ namespace valuesAndReferences
         {
             //Garbage collection 
             Olowek olowek = new Olowek();
-            Olowek grubyOlowek = new Olowek();  // Kompilator rezerwuje pamiec i przekzuje referencje do zmiennej
-            grubyOlowek = olowek; // Nadpisujemy referencje, do poprzedniego miejsca w pamięci, żadna zmienna już się nie odwołuje więc Garbage collection odzyskuje zaalokowaną pamięc.
-                                  // Ten proces jest kosztowny czasowo-sprzętowo.
-
+            Olowek grubyOlowek = new Olowek();  // Kompilator rezerwuje pamieć i przekzuje referencje do zmiennej
+            grubyOlowek = olowek; // Nadpisujemy referencje, do poprzedniego miejsca w pamięci. Nie ma już żadnego odwołania do tej zmiennej, więc Garbage Collection odzyskuje zaalokowaną pamięc.
+                                  // Garbage Collection monitoruje czy do obiektów na stercie przypisana jest referencja na stosie w czasie działania programu. Ten proces jest kosztowny czasowo-sprzętowo.
 
             // Dobrą praktyką jest aby przypisywać/kopiować referencje do zmiennej gdy nie zawiera jeszcze żadnej referencji. 
             Olowek cienkiOlowek = null; // null jest to referencja, która nie wskazuje na żaden konkretny obiekt.
@@ -79,8 +78,8 @@ namespace valuesAndReferences
         static void OperatorWarunkowyNull()
         {
             /* Operatory warunkowe wartości null '?'. 
-             * Umożliwia sprawdzenie czy wartość zmiennej == null przed użyciem metody instancji. Gdy obiekt jest nullem to metoda nie zostanie wykonana.
-             * Nie zostanie również zgłoszony wyjątek 'NullReferenceException'. Poprostu bedzie nullem. (bool true = p?.ToString() == null;)
+             * Umożliwiają sprawdzenie czy wartość zmiennej == null przed użyciem metody instancji. Gdy obiekt jest nullem to metoda nie zostanie wykonana, nie zostanie również zgłoszony wyjątek 'NullReferenceException'.
+             * Poprostu bedzie nullem. (bool true = p?.ToString() == null;)
             */
             Szuflada szuflada = null;
             szuflada?.PokazCoMaszWSrodku();
@@ -90,17 +89,16 @@ namespace valuesAndReferences
 
         static void ZmienneNullowalne()
         {
-            /* Typy danych dopuszczające zapis wartości null.
-             * Wartość null jest przydatna ponieważ pozwala inicjiować zmienne referencyjne wartością domyślną, ale wartość null sama jest referencją i dlatego nie można jej
-             * przypisać do zmiennej wartościowej. C# umożliwia jednak przypisanie null do zmiennej nullowalnej. Zmienna nullowalna (ang. nullalbe value type) najprościej mówiąc
-             * jest to zmienna która była typu wartościowego i umożliwia przypisanie do niej wartości null. 
+            /* Wartościowe typy danych dopuszczające zapis wartości null, nazywamy zmiennymy 'nullowalnymi'.
+             * Wartość null jest przydatna ponieważ pozwala inicjiować zmienne referencyjne wartością domyślną ale wartość null sama jest referencją, dlatego nie można jej przypisać do zmiennej wartościowej.
+             * C# umożliwia jednak przypisanie null do zmiennej nullowalnej. Zmienna nullowalna (ang. nullalbe value type) najprościej mówiąc jest to zmienna która była typu wartościowego i umożliwia przypisanie do niej wartości null. 
              * np. int ? nullowalna;
-             * Zmienne Nullowalne są typu referencyjnego posiadają 2 właściwości: 
+             * Zmienne Nullowalne są typu referencyjnego posiadają 2 właściwości:
              * bool b = nullowalna.HasValue; - Sprawdza czy zmienna 'nullowalna' posiada wartość różną od null.
              * int v = nullowalna.Value; - Zwraca wartość typu prostego jeśli istnieje.
             */
 
-            int? i = null;
+            int ? i = null;
             int j = 99;
             i = 100;
             i = j;
@@ -108,7 +106,9 @@ namespace valuesAndReferences
             /* Nie można jednak przypisać wartość zmiennej nullowalnej do zmiennej typu wartościowego.
              * j = i; instrukcja nieprawidłowa.
              * Oznacza to, że nie można przekazywać zmiennej nullowalnej jako parametr fukncji która przyjmuje zwykły typ wartościowy.
-             * Nie można zrobić zmiennej nullowalenj ze zmiennej referencyjnej. Zmienne referencyjne nie posiadają także tych 2 własciwości, które zawierają zmienne nullowalne.
+             */
+            
+             /* Nie można zrobić zmiennej nullowalenj ze zmiennej referencyjnej. Zmienne referencyjne nie posiadają także tych 2 własciwości, które zawierają zmienne nullowalne.
              * Szuflada? objSzuflada = null; instrukcja nieprawidłowa.
              */ 
         }
@@ -116,11 +116,10 @@ namespace valuesAndReferences
         static void ParametryRefOut()
         {
             /* Normalnie metoda tworzy kopie przekazanych argumentów bez różnicy czy argumentami są zmienne typu wartościowego czy referencyjnego. 
-             * Z modyfikatorami 'out' 'ref' parametry funkcji stają się aliasem/przedłużeniem jej argumentu. (Metoda nie tworzy kopii zmiennych tylko pracuje na oryginale)
+             * Z modyfikatorami 'out' i 'ref' parametry funkcji stają się aliasem/przedłużeniem jej argumentu. (Metoda nie tworzy kopii zmiennych tylko pracuje na oryginale)
              */
 
-            /* Modyfikator 'ref' 
-             */
+            /* Modyfikator 'ref' */
             Olowek olowek = new Olowek(10);
             int liczba = 4;
             ZmianaWartosci(olowek, liczba); // zmienna która została przekazana do metody nazywamy argumentem.
@@ -129,10 +128,11 @@ namespace valuesAndReferences
             Console.WriteLine($"{olowek.Grubosc}, {liczba}"); // 1, 9
 
             /* Modyfikator 'out' 
-             * Umożliwia przekazywanie zmiennych (wartosciowych i referencycjnych) do funkcji przed ich zainicjowaniem. W takiej funkcji musimy przypisać wartość do tego argumentu.
+             * Umożliwia przekazywanie zmiennych (wartosciowych lub referencycjnych) do funkcji przed ich zainicjowaniem. W takiej funkcji Musimy! przypisać wartość do tego argumentu.
              */
             int arg;
             DoIncrement(out arg);
+            Console.WriteLine($"{arg}"); // wynik '1'
         }
 
         static void ZmianaWartosci(Olowek olowek, int liczba)
@@ -174,29 +174,32 @@ namespace valuesAndReferences
              * Na stercie przechowywane są zmienne referencyjne.
              */
 
-            /* Podczas wywoływania meody, parametry oraz zmienne lokalne tej metody (wart. oraz ref.) są zawsze zapisywane na stosie. Po zakonczeniu metody (z powodu poprawnego zwrotu lub w wyniku wystąpienia wyjątku) 
-             * pamięć przydzielona na stosie dla zmiennych wartościowych jest zwalniana i bedzie mogła zostać użyta odrazu.
-             * Cykl życia zmiennych konczy się pod koniec metody a zaczyna na początku. Taki sam cykl życia dotyczy wszystkich zmiennych zdefiniowanych w nawiasach klamrowych {}.
+            /* Podczas wywoływania meody, parametry oraz zmienne lokalne tej metody (wart. oraz ref.) są zawsze zapisywane na stosie. 
+             * Cykl życia zmiennych zaczyna na początku a kończy pod koniec metody. Taki sam cykl życia dotyczy wszystkich zmiennych zdefiniowanych w nawiasach klamrowych {}.
+             * Po zakonczeniu metody (z powodu poprawnego zwrotu lub w wyniku wystąpienia wyjątku) pamięć przydzielona na stosie jest zwalniana. Oznacza to, że zmienne typu wartościowego zostaną usunięte i pamięć,
+             * którą zajmowały bedie mogła zostać użyta ponownie natychmiast.            
              */
             int a = 9;
             while(a == 10){
-                int i = 0; // w tym miejscu zmienna i zostanie utworzona na stosie.
+                int i = 0; // w tym miejscu zmienna 'i' zostanie utworzona na stosie.
             }
-            /* W tym miejscu zmienna 'i' zostanie usunięta ze stosie. */
+            /* i = 9; (zmienna 'i' nie istnieje). W tym miejscu zmienna 'i' zostanie usunięta ze stosu. */
 
-           /* Zmiennych referencyjne, do utworzenia instancji używanmy słowa kluczowego new, pamięć potrzebna do przechowywania odpowiednie dużego obiektu jest rezerwowana na stercie.
-            * Następnie uruchomi się konstruktor, który wypełni surowy blok pamięci wartościami.
-            * Pamięć zwalniana jest, gdy w programie zniknie ostatnie odwołania (referencja) do tego bloku pamięci (obiektu). (Choć nie koniecznie może to nastąpić od razu.)
-            * Sposób odzyskiwania pamięci ze sterty jest omówiony w rozdziale 14.
-            * Obiekty, które 'żyją' na stercie mają bardziej nieokreślony czas życia.
-            */
+
+            /* Cykl życia zmiennych referencyjne.
+             * Do utworzenia instancji używanmy słowa kluczowego new, pamięć potrzebna do przechowywania odpowiednie dużego obiektu jest rezerwowana na stercie.
+             * Następnie uruchomi się konstruktor, który wypełni surowy blok pamięci wartościami.
+             * Pamięć zwalniana jest, gdy w programie zniknie ostatnie odwołania (referencja) do tego bloku pamięci (obiektu). (Choć nie koniecznie może to nastąpić od razu.)
+             * Sposób odzyskiwania pamięci ze sterty jest omówiony w rozdziale 14.
+             * Obiekty, które 'żyją' na stercie mają bardziej nieokreślony czas życia.
+             */
 
             /* Wszystkie zmienne wart. są przechowywane na stosie, wszystkie zmienne ref. są przechowywane na stercie a ich referencje zapisujemy na stosie. Zmienne nullowalne są typu referencynego. */
 
-            /* Stos jest uporządkowana jak stos pudełek. Gdy wywołujemy metode dokładmay pudełka na szczyt, a pod koniec metody zdejmujemy pudełka.
-             * Sterta przypomina rozrzucone pudełka po całym pokoju. Kazde pudełko ma swoją etykietę, która informuje czy pudełko jest zajęte/używane. 
-             * Podczas twoarzenia obiektu środowisko uruchomieniowe zapisuje obiekt do odpowiedniego pudełka. Odwołanie do obiektu (referencja) zostanie zapisana na stosie.
-             * Gdy zniknie ostatnie odwołanie do obiektu, to srodowisko uruchomieniowe oznaczy te pudełko jako wolne po pewnym czasie bedzie można zapisać nowy obiekt.
+            /* Stos jest uporządkowany jak stos pudełek. Gdy wywołujemy metode dokładmay pudełka na szczyt, a pod koniec metody zdejmujemy pudełka.
+             * Sterta przypomina rozrzucone pudełka po całym pokoju. Każde pudełko ma swoją etykietę, która informuje czy pudełko jest zajęte/używane. 
+             * Podczas tworzenia obiektu środowisko uruchomieniowe zapisuje obiekt do odpowiedniego pudełka. Odwołanie do obiektu (referencja) zostanie zapisana na stosie.
+             * Gdy zniknie ostatnie odwołanie do obiektu, to srodowisko uruchomieniowe oznaczy te pudełko jako wolne, a po pewnym czasie pamięć bedzie można użyć ponownie.
              */
 
             /* Note: gdy zmienna ref. posiada zmienne wart. to po utworzeniu takiego obiektu zmienne te nie są zapisywane na stosie tylko jest to część obiektu i jest zapisana na stercie. */
@@ -215,9 +218,9 @@ namespace valuesAndReferences
                 /* Rezerwujemy pamięć na stercie, aby pomieścić obiekt klasy Okrąg. Wywoływany jest konstruktor, który przekształca surowy blok pamięci w obiekt klasy Okrąg. Zapisujemy ref na stos. */
                 o = new Okrag(parameter);
 
-               /* Po zakończeniu metody, zmienne o oraz parametr wychodzą poza zakres i pamięć przydzielona do nich zostanie zwrócona na stos. Środowisko uruchomieniowe odnotuje fakt, że żadna zmienna nie wskazuje 
-                * na blok pamięci przechowujący obiekt o i po pewnym czasie pamięć zostanie zwrócona na stertę. (więcej w rozdziale 14)
-                */
+                /* Po zakończeniu metody, zmienne o oraz parametr wychodzą poza zakres i pamięć przydzielona do nich utworzenia zostanie zwrócona na stos.
+                 * Środowisko uruchomieniowe odnotuje fakt, że żadna zmienna nie wskazuje na blok pamięci przechowujący obiekt 'o' i po pewnym czasie pamięć zostanie zwrócona na stertę i bedzie można użyć jej ponownie.
+                 */
             }
 
             /* Note: Ilość dostępnej pamięci na stercie jest ograniczona. Gdy dojdzie do wyczerpania zostanie zgłoszony wyjątek OutOfMemoryException. */
@@ -225,7 +228,7 @@ namespace valuesAndReferences
 
         static void KlasaSystemObject()
         {
-            // Zmienna typu 'object' moze przechowywać referencje do dowolnego obiektu.
+            // Zmienna typu 'object' może przechowywać referencje do dowolnego obiektu.
 
             object obiekt;
             Olowek olowek = new Olowek();
@@ -246,21 +249,20 @@ namespace valuesAndReferences
 
             int value = 13;
             object ob = value;
-
-            /*Modyfikacja zmiennej wartościowej nie zmieni wartości na stercie. Są to 2 różne wartośći */
             value++; //14
             ob.ToString(); //13
+            /* Modyfikacja zmiennej wartościowej nie zmieni wartości na stercie. Są to 2 różne wartośći */
 
             //Note: Tworzenie zmiennej referencyjnej na podstawie zmiennej wartościowej. Taka operacja nazywa sie opakowywaniem (ang. Boxing)            
         }
         static void UnBoxingRozpakowywanie()
         {
             /* Pobieranie wartości z opakowanej zmiennej wartościowej wymaga użycia rzutowania (ang. cast). 
-             * Operacja rzutowania przeprowadza konwersje elementu jednego typu na element drugiego typu, ale wcześniej sprawdza, czy taka konwersja może zostać przeprowadzona w sposób bezpieczny.
+             * Operacja rzutowania polega na przeprowadzeniu konwersji elementu jednego typu na element drugiego typu z wcześniejszym sprawdziem, czy taka konwersja może zostać przeprowadzona w sposób bezpieczny.
              * W nawiasch okrągłych przed zmienną referencyjną należy podać typ wartościowy do którego chcemy rzutować.
              * Kompilator generuje kod, który podczas wykonywania programu sprawdza zgodność typów pomiędzy typem zdefinowanym w () a rzeczywistym typem przechowywanym w obiekcie (na stercie).
              * Jeśli typy się zgadzają to mamy do czynienia ze zgodnośćią typów danych i operacja zakonczy się sukseem.
-             * Natomiast jeśli mamy do czynienia z z niezgodnością typów danych to operacja zgłosi wyjątek InvalidCastException
+             * Natomiast jeśli mamy do czynienia z z niezgodnością typów danych to operacja zgłosi wyjątek InvalidCastException.
              */
 
 
@@ -301,9 +303,8 @@ namespace valuesAndReferences
 
 
             /* Operator 'is'
-             * Sprawdza czy typ jest zgodny z oczekiwanym.
+             * Sprawdza czy typ jest zgodny z oczekiwanym. Zwraca bool
              * Operator 'is' posiada 2 argumenty: z lewej strony referencje do obiektu, z prawej strony typ danych.
-             * Jeśli typ danych który jest wskazywany przez referencje jest zgodny z typem przekazanym w argumecie po prawej stonie, operator 'is' zwróci true.
              */
             Okrag okrag = new Okrag();
             object ob = okrag;
@@ -392,9 +393,7 @@ namespace valuesAndReferences
              * Jeżeli nadal chcemy korzystać ze wskaźników należy użyć słowa kluczowego 'unsafe'. (oznacza: kod jest potencjalnie niebezpieczny)
              */
 
-            /* Słowo kluczowe 'unsafe'
-             * Słowem kluczowym 'unsafe' można oznaczyć część kodu lub całą metode.
-             */
+            /* Słowem kluczowym 'unsafe' można oznaczyć część kodu lub całą metode. */
             int x = 9, y = 10;
             Console.WriteLine($"x: {x}, y: {y}");
             unsafe
