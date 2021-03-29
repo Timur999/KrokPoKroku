@@ -194,8 +194,8 @@ namespace Chapter_9_Enums_and_Structs
             * Podstawowym przeznaczeniem środowiska WinRT jest uproszczenie współpracy pomiedzy kodem napisanym w różnych językach programowania, pozwalając na łatwiejszą integracje
             * aplikacji z różnymi kładnikami (bibliotekami) napisami w różnych językach. np. Aplikacja w jezyku C++ biblioteka w jezyku C#.
             * Ma to jednak swoją cene gdyż języki posiadają pewne różnice:
-            * np. w C++ struktury nie metod metod instancji. Jeśli wiec bede pisał biblioteke, która zostanie umieszczona w C++ koniecznie bedzię usuniecie metod lub przerobienie jej na klase.
-            * To samo tyczy sie pol statycznych oraz identyfikatora dostepności, wszystkie pola nie mogą byc prywatne a pola publiczne muszą używać wartościowych typów danych. Zgodnich z C++ lub stringa.
+            * np. w C++ struktury nie posiadają metod instancji. Jeśli wiec bede pisał biblioteke w C#, która zostanie umieszczona w C++ koniecznie bedzię usuniecie metod lub przerobienie jej na klase.
+            * To samo tyczy sie pól statycznych oraz identyfikatora dostepności, wszystkie pola nie mogą byc prywatne a pola publiczne muszą używać wartościowych typów danych. Zgodnich z C++ lub stringa.
             * Srodowisko WinRT nakłada jeszcze kilka innych restrykcji co to klas i struktur tworzonych w jezyku C# aby mogły zostać bezpiecznie użyte w kodzie natywnym. Wiecej o tym w rozdziale 12.
             */
         }
@@ -203,10 +203,9 @@ namespace Chapter_9_Enums_and_Structs
         private static void CommonLanguageRuntime_CLR_AND_CommonIntermediateLanguage_CIL()
         {
             // Wszystkie apliakcje C#, Visual Basic, F# uruchamiane są za pośrednictwem CLR platformy .Net Framework (CLR Common Language Runtime - Wspólne środowisko uruchomieniowe) 
-            // CLR (Wspólne środowisko uruchomieniowe) odpowiada za utworzenie virtual maszyny na której wykonywany bedzie kod.
-            // Podczas kompilacji aplikacji w jezyku C# kompilator przekształca kod na pseudo-maszynowy kod nazywany wspólnym językiem pośredniczącym (Common Intermediate Language - wspólny język pośredni)
-            // kompilator przekształca kod napisany w jezyku C#, Visual Basic itp. do postaci CIL (nazywany również kodem/zbiorem instrukcji pseudo-maszynowym) 
-            // Po kompilacji taki zbiór instrukcji pseudo maszynowego zostanie zapisany do pliku wykonywalnego .exe
+            // CLR odpowiada za utworzenie virtual maszyny na której wykonywany bedzie kod.
+            // Podczas kompilacji aplikacji w jezyku C#, F#, itp kompilator przekształca kod zródłowy na pseudo-maszynowy kod nazywany Wspólnym Językiem Pośredniczącym (Common Intermediate Language - CIL)
+            // Po kompilacji taki zbiór instrukcji pseudo maszynowego (CIL) zostanie zapisany do pliku wykonywalnego .exe
             // Podczas uruchomienia programu napisanej w jezyku C#, środowisko CLR odpowiedzialne jest za konwersje instrukcji jezyka CLI na rzeczywiste instrukcje maszynowe. 
             // Cały ten proces konwersji kodu do CLI i w CLR do postaci maszynowej nazywany jest "zarządzalnym środowiskiem uruchomieniowym", a programy napisany w tym standarcie "kodem zarządzanym".
             // W Windows 7 i wcześniejszych windowsach możliwe było również tworzenie niezarządzanech aplikacji nazywane "kodem natywnym".
@@ -214,15 +213,15 @@ namespace Chapter_9_Enums_and_Structs
 
         private static void WinRT_AND_APIWin32()
         {
-            // Niezarządzane aplikacje (z kodem natywnym) oparte są o wykorzystywanie fukcji oferowanych przez API podsystemy Win32.
+            // Niezarządzane aplikacje (z kodem natywnym) oparte są o wykorzystywanie fukcji oferowanych przez API podsystemy 'Win32'.
             // (W aplikacjach zarządzanych CLR również może korzystac z API Win32 jednak jest to całkowicie przezroczyste dla tworzonego kodu przez programiste. (Chyba trzeba poprostu dodać odpowiednią bibliotekę))
 
-            // Systemach nowszych od Windows 7 zaimplementowano alternatywne rozwiązane w postaci Windows Runtime (środowisko uruchomieniowe systemu Windows) w skrócie WinRT.
+            // Systemach nowszych od Windows 7 zaimplementowano alternatywne rozwiązane w postaci Windows Runtime ('WinRT') (środowisko uruchomieniowe systemu Windows)
             // WinRT oferuje warstę opartą o API podsystemu Win32 a także o kilka innych interfejsach API systemu Windows, która zapewnia spójną funkcjionalność na różnego typu użądzeniach.
             // WinRT zapewnia wieloplatformowość od telefony po serwery.
-            // Tworząc aplikacje Universal Windows Platform (UWP), program bedzie korzystał z funkcji oferowanych przez API WinRT
-            // Analogicznie środowisko CLR w systemie Windows 10 również bedzie korzystać z środowiska WinRT zamiast Win32. W trakcie wykonywania kodu napisanego w jezyku zarządzalnym środowisko CLR bedzie przekształcać
-            // wykonywany kod na wywołania funkcji API WinRT. Środowiska CLR i WinRT wspólnie odpowiadają za bezpieczne zarządzanie i uruchamianie kody w systemie Windows 10.
+            // Tworząc aplikacje Universal Windows Platform (UWP), program bedzie korzystał z funkcji oferowanych przez API WinRT a nie z API podsystemu Win32
+            // Analogicznie środowisko CLR w systemie Windows 10 również bedzie korzystać z środowiska WinRT zamiast Win32. W trakcie wykonywania kodu zarządzanego środowisko CLR bedzie przekształcać
+            // wykonywany kod na wywołania funkcji API WinRT zamiast API Win32. Środowiska CLR i WinRT wspólnie odpowiadają za bezpieczne zarządzanie i uruchamianie kody w systemie Windows 10.
             // Głownym zadaniem WinRT jest uproszczenie z integrowania w jedną aplikacje składników (bibliotek) napisanych w różnych jezykach programowania.
 
             // Info: Dzięki specjalnych technologii pośredniczących możliwe jest umieszczanie kodu zarządzanego w aplikacjach niezarządzanych
