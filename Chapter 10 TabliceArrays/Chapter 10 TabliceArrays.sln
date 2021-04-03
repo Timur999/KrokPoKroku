@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 10 TabliceArrays", "Chapter 10 TabliceArrays.csproj", "{1D799D72-5C93-44DA-BE44-1C417525D309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapter 10 TabliceArrays", "Chapter 10 TabliceArrays.csproj", "{1D799D72-5C93-44DA-BE44-1C417525D309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 10 Tablice", "Chapter 10 Tablice\Chapter 10 Tablice.csproj", "{B7C118F2-4CC2-49D8-86A7-485074D44A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter 10 Cwiczenie Karty", "Chapter 10 Cwiczenie Karty\Chapter 10 Cwiczenie Karty.csproj", "{1F895467-9A5B-44E4-8546-61B15D8F9016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1D799D72-5C93-44DA-BE44-1C417525D309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D799D72-5C93-44DA-BE44-1C417525D309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D799D72-5C93-44DA-BE44-1C417525D309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7C118F2-4CC2-49D8-86A7-485074D44A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C118F2-4CC2-49D8-86A7-485074D44A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C118F2-4CC2-49D8-86A7-485074D44A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C118F2-4CC2-49D8-86A7-485074D44A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F895467-9A5B-44E4-8546-61B15D8F9016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F895467-9A5B-44E4-8546-61B15D8F9016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F895467-9A5B-44E4-8546-61B15D8F9016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F895467-9A5B-44E4-8546-61B15D8F9016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
