@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Linq;
 
+/* Kiedy używać parametrów param.
+ * Gdy zachodzi potrzeba przekazania do metody zmienną liczbę parametrów które mogą być różnego typu.
+ * Przeciążenie nadaje się gdy chcemy wykonać te same zadanie na różnych typach danych.
+ */
+
 namespace Chapter_11_Tablica_parametrów_params
 {
     class Program
     {
         static void Main(string[] args)
         {
-            ParameterInMethodDifferentAmountTheSameType();
-            ParameterInMethodDifferentAmountDifferentType();
-            OptionalParameterAndParams();
+            RoznaIloscParametrowTegoSamegoTypu();
+            RoznaIloscParametrowRoznegoTypu();
+            ParametryOpcjionalneAParametrParam();
 
             Console.ReadKey();
         }
 
-        static void ParameterInMethodDifferentAmountTheSameType()
+        static void RoznaIloscParametrowTegoSamegoTypu()
         {
             // Parametrem metody jest tablica int[]
             int[] numbers = new int[] { 1, 2, 4, 6 };
@@ -25,7 +30,7 @@ namespace Chapter_11_Tablica_parametrów_params
             // Nie musimy tworzyc własnej tablicy. Kompilator zrobi to za nas.
             Max(1, 4, 8, 4); // Max(new int[4] {1, 4, 8, 4}); 
             Max(); // Max(new int[0]);
-            Max(null); // Max(null);
+            Max(null);
             Max(numbers);
         }
 
@@ -79,7 +84,7 @@ namespace Chapter_11_Tablica_parametrów_params
         // Druga metoda wykona się w każdym innym przypadku gdy ilość parametrów bedzie różna od trzech.
 
 
-        static void ParameterInMethodDifferentAmountDifferentType()
+        static void RoznaIloscParametrowRoznegoTypu()
         {
             // Dobrym przykładem takiej metody jest Console.WriteLine();
             // Console.WriteLine(string format, params object[] arg);
@@ -104,10 +109,22 @@ namespace Chapter_11_Tablica_parametrów_params
             Console.WriteLine(things.ToString()); // wynik: object[];
             foreach (object ob in things)
             {
-                Console.WriteLine(ob.ToString() ); // wynik: int[];
-                foreach (int o in ob as int[])
+                Console.WriteLine(ob.GetType()); // wynik: System.Int32[], System.String[], <>f__AnonymousType0`2[System.String,System.Int32][]
+                switch (ob)
                 {
-                    Console.WriteLine(o); // wynik: 4
+                    case int[] tabInt:
+                        foreach(var a in tabInt)
+                        {
+                            Console.WriteLine(a);
+                        }
+                        break;
+                    case string[] tabStr:
+                        foreach (var a in tabStr)
+                        {
+                            Console.WriteLine(a);
+                        }
+                        break;
+                    
                 }
             }
         }
@@ -139,7 +156,7 @@ namespace Chapter_11_Tablica_parametrów_params
             }
         }
 
-        static void OptionalParameterAndParams()
+        static void ParametryOpcjionalneAParametrParam()
         {
             // Wykona się metoda z parametrami opcjionalnymi
             Sum();
