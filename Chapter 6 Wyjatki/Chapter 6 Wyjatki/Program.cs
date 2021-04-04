@@ -181,6 +181,8 @@ namespace Chapter_6_Wyjatki
                     return "Grudzien";
                 default:
                     throw new ArgumentOutOfRangeException("Nie ma takiego miesiaca");
+
+             /* Note: Klasa ArgumentException została specjalnie do zgłaszania wyjątków gdy podany parametr nie pasuje do działania metody. */
             }
         }
 
