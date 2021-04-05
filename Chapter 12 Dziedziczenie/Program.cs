@@ -1,11 +1,13 @@
 ﻿using Chapter_12_Dziedziczenie.Animals;
 using System;
 
-// Klasa może dziedziczyc tylko po jednej klasie bazowej pod warunkiem, że nie została zapieczętowana 'sealed'.
-// W C# dzidziczenie ma zawsze charakter publiczny oznacza to, że dziedziczy wszystkie pola i metody bez względu na ich modyfikator dostępności.
-// Mechanizm dziedziczenia nie dotyczy struktur! Wszystkie struktury dziedziczą po klasie abstrakcyjnej 'System.ValueType'.
-// 'System.ValueType' to klasa określająca sposób działania wszystkich, przechowywanych na stosie, wartościowych typów danych.
-
+/* Klasa może dziedziczyc tylko po jednej klasie bazowej pod warunkiem, że nie została zapieczętowana 'sealed'.
+ * W C# dzidziczenie ma zawsze charakter publiczny oznacza to, że dziedziczy wszystkie pola i metody bez względu na ich modyfikator dostępności.
+ * Mechanizm dziedziczenia nie dotyczy struktur! Wszystkie struktury dziedziczą po klasie abstrakcyjnej 'System.ValueType'.
+ * 'System.ValueType' to klasa określająca sposób zachowania wszystkich zmiennych przechowywanych na stosie, wartościowych typów danych.
+ * Klasa 'System.Object' jest główną klasą bazową wszystkich klas. Wszystkie klasy niejawnie dziedziczą po niej. Kompilator dokonuje niejawnej zmiany definicji każdej klasy.
+ * np. Class Ssak : System.Object (Możemy to robić jawnie, ale po co).
+*/
 namespace Chapter_12_Dziedziczenie
 {
     class Program
@@ -13,7 +15,7 @@ namespace Chapter_12_Dziedziczenie
         static void Main(string[] args)
         {
             Init();
-            Convert(new Horse("konik"));
+            Konwersja(new Kon("konik"));
             Ukrywanie();
             Przesłanianie();
             ExtendedMethods();
@@ -23,63 +25,91 @@ namespace Chapter_12_Dziedziczenie
 
         public static void Init()
         {
-            Mammal mammal = new Mammal();
-            Horse myHorse = new Horse();
-            myHorse.PutSaddle();
-            mammal = myHorse;
-            // mammal.PutSaddle(); błąd. Metoda PutSaddle() (Załuż siodło) jest tylko w klasie Horse.
+            Ssak mojSsak = new Ssak();
+            Kon mojKon = new Kon();
+            mojKon.ZaluzSiodlo();
+            mojSsak = mojKon;
+           // mojSsak.ZaluzSiodlo(); // błąd. Odwołujac się do obiektu klasy Kon za pomocą zmiennej typu 'Ssak' możemy korzystać tylko z metod i właściwości zdefiniowanych w klasie 'Ssak'
+                                // Metoda ZaluzSiodlo() (ang. put saddle) jest tylko w klasie Kon.
 
-            // Mammal someMammal = new Mammal();
-            // Horse someHorse = someMammal;  błąd.
+            Ssak jakisSsak = new Ssak();
+           // Kon jakisKon = jakisSsak;  // błąd. Nie można przypisać obiektu klasy 'Ssak' to zmiennej typu 'Kon'. Klasa 'Kon' "rozszerza" klase 'Ssak' i zawiera wiecej pól i metod, dlatego jest to niemożliwe.
+
+            // Możliwe jest przypisanie pod warunkiem, że obiekt klasy 'Ssak' tak naprawde jest Koniem. Można to sprawdzić za pomocą operatorów 'as', 'is' lub rzutowania przykład poniżej.
+            Kon konik = new Kon();
+            Ssak ssak = konik;
+            Kon konPonownie;
+            if(ssak is Kon)
+            {
+                konPonownie = (Kon)ssak;
+            }
+
+            Delfin delfin = new Delfin();
+            ssak = delfin;
+
+            konPonownie = ssak as Kon; // Oprator as zwróci 'null', gdyż obiekt 'ssak' jest rownież obiektem klasy 'Delfin' a nie 'Kon'.
         }
 
         // Ważną zaletą Dziedziczenia jest to, że do tej metody mogę przekazać każdy obiekt klasy dziedziczącej po klase bazowej.
-        public static void Convert(Mammal mammal)
+        public static void Konwersja(Ssak ssak)
         {
-            Horse myHorse = mammal as Horse; // Wiecej na temat 'as' w rozdział 8 Wartości i Referecje - SaveCasting
-            if (myHorse != null) 
+            Kon mojKon = ssak as Kon; // Wiecej na temat 'as' w rozdział 8 Wartości i Referecje - SaveCasting
+            if (mojKon != null) 
             {
-                myHorse.PutSaddle(); 
+                mojKon.ZaluzSiodlo(); 
             }
         }
 
         public static void Ukrywanie() // Nazewnictwo: maskowanie/ukrycie metody. Chodzi o to samo.
         {
-            // Klasy Horse i Mammal posiadają metody o takiej samej sygnaturze - public void MyName(). 
-            // Horse ukrywa metode Mammal.MyName() i tworzy własną - public new void MyName().
-            Horse horse = new Horse();
-            Mammal mammalHorse = new Horse();            
+            /* Klasy Kon i Ssak posiadają metody o takiej samej sygnaturze - public void PobierzImie(). 
+             * Kon ukrywa metode Ssak.PobierzImie() i tworzy własną - public new void PobierzImie().
+             * Gdy jakaś klasa dziedziczyć bedzie po klasie 'Kon' to odziedziczy tą metodę po klasie 'Kon' a nie 'Ssak'. Ponieważ ta metoda została ukryta.
+            */
 
-            horse.MyName(); // Wynik na konsoli 'Jestem Koniem'
-            mammalHorse.MyName(); //Wynik na konsoli 'Jestem Ssakiem'
+            Kon kon = new Kon("Konik");
+            Ssak ssakKon = new Kon("Konik Roman");
+            Zebra zebra = new Zebra("Zebra Irena");
 
-            //Note: Na sygnaturę metody składa się: nazwa metody oraz ilość i typ parametrów.
-            //      Typ zwracanej wartośćci nie ma znaczenia.
+            kon.PobierzImie(); // Wynik na konsoli 'Lubie biegac!'
+            ssakKon.PobierzImie(); //Wynik na konsoli 'Konik Roman'
+            zebra.PobierzImie(); // Wynik na konsoli 'Lubie biegac!'
+
+            // Note: Na sygnaturę metody składa się: nazwa metody oraz ilość i typ parametrów. Typ zwracanej wartośćci nie ma znaczenia.
         }
 
         public static void Przesłanianie() // Nazewnictwo: nadpisanie/przesłanianie metody
         {
-            // Różnica pomiedzy 'Przesłonięciem'(ang. overriding) a 'Ukrywaniem' 
-            // Przesłonięcie metody polega na tym aby metoda wykonywała te same zadanie w sposób zależny od danej klasy.
-            // Ukrycie metody - metody mogą wykonywać dwa całkowicie różne zadania. Ukrycie metody jest często błędem.
-            
-            Mammal mammal = new Mammal();
-            Horse horse = new Horse();
+            /* Metoda która z założenia służy do tego, aby została przeszłonięta przez inna implementacje nazywamy metodą 'wirtualną'.
+             * Więcej o metodzie wirtualnej i override w klasie 'Ssak' i 'Kon'. 
+             * Różnica pomiedzy 'Przesłonięciem'(ang. overriding) a 'Ukrywaniem' 
+             * Przesłonięcie metody polega na tym aby metoda wykonywała te same zadanie w sposób zależny od danej klasy.
+             * Ukrycie metody - metody mogą wykonywać dwa całkowicie różne zadania. Ukrycie metody jest często błędem.
+            */
+
+            Ssak ssak = new Ssak();
+            Kon kon = new Kon();
             Zebra zebra = new Zebra();
-            Dolphin dolphin = new Dolphin();
+            Delfin defin = new Delfin();
 
-            // W klasie Mammal metoda Speaking() jest virtualna. Klasa Horse ją nadpisuje (override). 
-            mammal = horse;
-            mammal.Speaking(); // Wykona się metoda z klasy Horse.
 
-            mammal = zebra;
-            mammal.Speaking(); // Wykona się metoda z klasy Zebra.
+            /* Metoda wirtalna a 'polimorfizm'
+             * Przy pomocy metod wirtualnych można wywoływać różne wersje tej samej metody w zależności od faktycznego typu obiektu przekazanego do zmiennej.
+             */
+            // W klasie Ssak metoda Mowa() jest virtualna. Klasa Kon ją nadpisuje (override). 
+            ssak = kon;
+            ssak.Mowa(); // Wykona się metoda z klasy Kon.
 
-            // dolphin nie implementuje metody Speaking()
-            mammal = dolphin;
-            mammal.Speaking(); // Wykona się metoda z klasy Mammal.
+            ssak = zebra;
+            ssak.Mowa(); // Wykona się metoda z klasy Zebra.
 
-            //Note: Gdyby Speaking była przesłonięta a nie nadpisana to wykonałaby się metoda z klasy Mammal.
+            // defin nie implementuje metody Mowa()
+            ssak = defin;
+            ssak.Mowa(); // Wykona się metoda z klasy Ssak.
+
+            /*Note: Gdyby metoda Mowa() była ukryta a nie nadpisana to wykonałaby się metoda z klasy Ssak.
+             * Jednak tak nie jest i na tym właśnie polaga polimorfizm (wiele form). 
+             */
         }
 
         public static void ExtendedMethods()

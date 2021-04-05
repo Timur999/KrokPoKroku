@@ -2,19 +2,19 @@
 
 namespace Chapter_12_Dziedziczenie.Animals
 {
-    class Zebra : Horse
+    class Zebra : Kon
     {
         public Zebra(string name) : base(name) { }
         public Zebra() : base() { }
 
-        public override void Speaking()
+        public override void Mowa()
         {
             Console.WriteLine("Jestem Zebrą ");
         }
 
-        public override void Breathing()
+        public override void Oddychaj()
         {
-            base.Breathing();
+            base.Oddychaj();
         }
     }
 }
