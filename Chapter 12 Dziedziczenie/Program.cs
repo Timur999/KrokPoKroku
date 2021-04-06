@@ -29,8 +29,8 @@ namespace Chapter_12_Dziedziczenie
             Kon mojKon = new Kon();
             mojKon.ZaluzSiodlo();
             mojSsak = mojKon;
-           // mojSsak.ZaluzSiodlo(); // błąd. Odwołujac się do obiektu klasy Kon za pomocą zmiennej typu 'Ssak' możemy korzystać tylko z metod i właściwości zdefiniowanych w klasie 'Ssak'
-                                // Metoda ZaluzSiodlo() (ang. put saddle) jest tylko w klasie Kon.
+            mojSsak.ZaluzSiodlo(); // błąd. Odwołujac się do obiektu klasy Kon za pomocą zmiennej typu 'Ssak' możemy korzystać tylko z metod i właściwości zdefiniowanych w klasie 'Ssak'
+                                   // Metoda ZaluzSiodlo() (ang. put saddle) jest tylko w klasie Kon.
 
             Ssak jakisSsak = new Ssak();
            // Kon jakisKon = jakisSsak;  // błąd. Nie można przypisać obiektu klasy 'Ssak' to zmiennej typu 'Kon'. Klasa 'Kon' "rozszerza" klase 'Ssak' i zawiera wiecej pól i metod, dlatego jest to niemożliwe.
@@ -95,6 +95,7 @@ namespace Chapter_12_Dziedziczenie
 
             /* Metoda wirtalna a 'polimorfizm'
              * Przy pomocy metod wirtualnych można wywoływać różne wersje tej samej metody w zależności od faktycznego typu obiektu przekazanego do zmiennej.
+             * Typ obiektu może być tworzony dynamicznie, w trakcie działania programu.
              */
             // W klasie Ssak metoda Mowa() jest virtualna. Klasa Kon ją nadpisuje (override). 
             ssak = kon;
@@ -110,6 +111,24 @@ namespace Chapter_12_Dziedziczenie
             /*Note: Gdyby metoda Mowa() była ukryta a nie nadpisana to wykonałaby się metoda z klasy Ssak.
              * Jednak tak nie jest i na tym właśnie polaga polimorfizm (wiele form). 
              */
+        }
+
+        public static void Polimorfizm(int index)
+        {
+            Ssak ssak;
+            switch (index)
+            {
+                case 1:
+                    ssak = new Kon(); 
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                    default
+                    break;
+                        
+            }
         }
 
         public static void ExtendedMethods()
