@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace Chapter_13_Interfejsy_i_klasy_abstrakcyjne.Model
 {
-    class Square : Solid, ICalculate, IMove
+    class Kostka : Bryla, ICalculate, IMove
     {
         private double edgeLengthA;
         private double edgeLengthB;
         private double edgeLengthC;
 
-        public Square(double A, double B, double C)
+        public Kostka(double A, double B, double C)
         {
             this.edgeLengthA = A;
             this.edgeLengthB = B;
             this.edgeLengthC = C;
-            this.positionOnAxis = new PositionOnAxis();
+            this.positionOnAxis = new PozycjaNaOsi();
         }
 
-        decimal IMove.CalculateDistance(Solid solid)
+        decimal IMove.CalculateDistance(Bryla solid)
         {
             return 0;
         }
 
-        decimal ICalculate.CalculateDistance(Solid solid)
+        decimal ICalculate.CalculateDistance(Bryla solid)
         {
             return 0;
         }
 
-        double ICalculate.CalculateVolume()
+        public double CalculateVolume()
         {
             return edgeLengthA * edgeLengthB * edgeLengthC;
         }

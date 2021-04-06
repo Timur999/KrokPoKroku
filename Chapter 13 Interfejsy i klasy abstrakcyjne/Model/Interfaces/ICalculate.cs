@@ -3,6 +3,6 @@
     interface ICalculate
     {
         double CalculateVolume();
-        decimal CalculateDistance(Solid solid);
+        decimal CalculateDistance(Bryla solid);
     }
 }

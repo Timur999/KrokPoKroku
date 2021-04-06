@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chapter_13_Interfejsy_i_klasy_abstrakcyjne.Model
 {
-    class Sphere : Solid
+    class Kula : Bryla
     {
     }
 }

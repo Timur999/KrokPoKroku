@@ -2,6 +2,6 @@
 {
     interface IMove
     {
-        decimal CalculateDistance(Solid solid);
+        decimal CalculateDistance(Bryla solid);
     }
 }
