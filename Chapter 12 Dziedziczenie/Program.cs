@@ -18,6 +18,8 @@ namespace Chapter_12_Dziedziczenie
             Konwersja(new Kon("konik"));
             Ukrywanie();
             Przesłanianie();
+            Int32.TryParse(Console.ReadLine(), out int i);
+            Polimorfizm(i);
             ExtendedMethods();
 
             Console.ReadLine();
@@ -122,13 +124,19 @@ namespace Chapter_12_Dziedziczenie
                     ssak = new Kon(); 
                     break;
                 case 2:
+                    ssak = new Zebra();
                     break;
                 case 3:
+                    ssak = new Delfin();
                     break;
-                    default
+                default:
+                    ssak = new Ssak();
                     break;
-                        
             }
+
+            ssak.Mowa();
+
+            // Na podstawie podanego parametru mogę utworzyć różny obiek i za pomocą jednej instrukcji wykonać metodę zaimplementowaną w sposób zależny od klasy.
         }
 
         public static void ExtendedMethods()
