@@ -43,12 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Interfaces\ICalculate.cs" />
-    <Compile Include="Model\Interfaces\IMove.cs" />
-    <Compile Include="Model\PositionOnAxis.cs" />
-    <Compile Include="Model\Solid.cs" />
-    <Compile Include="Model\Sphere.cs" />
-    <Compile Include="Model\Square.cs" />
+    <Compile Include="Model\Interfaces\IOblicz.cs" />
+    <Compile Include="Model\Interfaces\IRuch.cs" />
+    <Compile Include="Model\Interfaces\IPozycja.cs" />
+    <Compile Include="Model\PozycjaNaOsi.cs" />
+    <Compile Include="Model\Bryla.cs" />
+    <Compile Include="Model\Kula.cs" />
+    <Compile Include="Model\Kostka.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

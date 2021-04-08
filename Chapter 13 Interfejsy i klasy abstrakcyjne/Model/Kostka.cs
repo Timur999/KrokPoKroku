@@ -1,39 +1,55 @@
 ﻿using Chapter_13_Interfejsy_i_klasy_abstrakcyjne.Model.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chapter_13_Interfejsy_i_klasy_abstrakcyjne.Model
 {
-    class Kostka : Bryla, ICalculate, IMove
+    class Kostka : Bryla, IOblicz, IRuch, IPozycja
     {
-        private double edgeLengthA;
-        private double edgeLengthB;
-        private double edgeLengthC;
+        private double dlugoscKrawedzA;
+        private double dlugoscKrawedzB;
+        private double dlugoscKrawedzC;
 
-        public Kostka(double A, double B, double C)
+        public Kostka() :base() { }
+
+        public Kostka(double A, double B, double C, PozycjaNaOsi pozycja)
         {
-            this.edgeLengthA = A;
-            this.edgeLengthB = B;
-            this.edgeLengthC = C;
-            this.positionOnAxis = new PozycjaNaOsi();
+            this.dlugoscKrawedzA = A;
+            this.dlugoscKrawedzB = B;
+            this.dlugoscKrawedzC = C;
+            this.pozycjaNaOsi = pozycja;
         }
 
-        decimal IMove.CalculateDistance(Bryla solid)
+        // Jawnie zaimplementowany interferjs. Metoda jest dostępna tylko dla obiektu zapisanego w zmiennej o typie 'IRuch'
+        decimal IRuch.ObliczDystansDo(Bryla bryla)
         {
             return 0;
         }
 
-        decimal ICalculate.CalculateDistance(Bryla solid)
+        // Jawnie zaimplementowany interferjs. Metoda jest dostępna tylko dla obiektu zapisanego w zmiennej o typie 'IOblicz'
+        decimal IOblicz.ObliczDystansDo(Bryla bryla)
         {
             return 0;
         }
 
-        public double CalculateVolume()
+        public double ObliczObjetosc()
         {
-            return edgeLengthA * edgeLengthB * edgeLengthC;
+            return dlugoscKrawedzA * dlugoscKrawedzB * dlugoscKrawedzC;
+        }
+
+        public decimal WykonajRuch(PozycjaNaOsi poz)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double ObliczObwod()
+        {
+            return 2 * dlugoscKrawedzA + 2 * dlugoscKrawedzB;
+        }
+
+        // Metoda zamknięta. Klasa pochodna nie dziedziczy tej metody.
+        public sealed override void PobierzNazwe()
+        {
+            Console.WriteLine("Kostka");
         }
     }
 }

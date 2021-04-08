@@ -1,14 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chapter_13_Interfejsy_i_klasy_abstrakcyjne.Model
 {
-    //Solid = Bryła
-    class Solid 
+    abstract class Bryla
     {
-        public PositionOnAxis positionOnAxis;
+        protected PozycjaNaOsi pozycjaNaOsi;
+
+        private string nazwaBryly;
+
+        public Bryla() { Console.WriteLine("Tworze bryłe."); }
+
+        public abstract double ObliczObwod();
+
+        public virtual void PobierzNazwe()
+        {
+            Console.WriteLine("Bryła");
+        }
+
+        public void UstawPozycje(PozycjaNaOsi pozycjaNaOsi) 
+        {
+            this.pozycjaNaOsi = pozycjaNaOsi;
+        }
     }
 }
