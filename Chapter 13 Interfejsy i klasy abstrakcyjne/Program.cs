@@ -206,7 +206,7 @@ namespace Chapter_13_Interfejsy_i_klasy_abstrakcyjne
              * Garbage Collector
              * Thread Support - wspoiera wielowątkowość
              * Exception Handler
-             * /
+             */
         }
 
         static void Integracja_AplikacjiNatywnych_Z_AplikacjaZarzadzana_W_Zakresie_Klas()
