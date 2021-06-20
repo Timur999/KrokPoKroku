@@ -66,7 +66,7 @@ namespace Chapter_16_Indeksory
             int dobre_bity = 0b0_10101010;
             if((dobre_bity & (1 << 5)) != 0)
             {
-                Console.WriteLine("Szosty bit jest 1");
+                Console.WriteLine("Szósty bit jest 1");
             }
 
             Console.WriteLine(Convert.ToString(dobre_bity, 2)); // 11010100

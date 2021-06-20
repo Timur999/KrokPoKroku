@@ -2,54 +2,55 @@
 
 namespace PhoneBook.Model
 {
-    struct KsiazkaTelefoniczna
-    {
-        public Osoba[] Osoby;
-        public NumerTelefonu[] Numery;
+	struct KsiazkaTelefoniczna
+	{
+		public Osoba[] Osoby;
+		public NumerTelefonu[] Numery;
 
-        public Osoba this[NumerTelefonu numerTelefonu]
-        {
-            get
-            {
-                int index = Array.IndexOf(Numery, numerTelefonu); // NumerTelefonu i Osoba jest structura dlatego takie wyszukanie jest poprawne.
-                if(index != -1)
-                {
-                    return Osoby[index];
-                }
+		public Osoba this[NumerTelefonu numerTelefonu]
+		{
+			get
+			{
+				// NumerTelefonu i Osoba jest structura dlatego takie wyszukanie w tablicy jest poprawne. To tak jakbym wyszukiwał inta.
+				int index = Array.IndexOf(Numery, numerTelefonu);
+				if(index != -1)
+				{
+					return Osoby[index];
+				}
 
-                return new Osoba();
-            }
-        }
+				return new Osoba();
+			}
+		}
 
-        public NumerTelefonu this[Osoba osoba]
-        {
-            get
-            {
-                int index = Array.IndexOf(Osoby, osoba);
-                if(index != -1)
-                {
-                    return Numery[index];
-                }
+		public NumerTelefonu this[Osoba osoba]
+		{
+			get
+			{
+				int index = Array.IndexOf(Osoby, osoba);
+				if(index != -1)
+				{
+					return Numery[index];
+				}
 
-                return new NumerTelefonu();
-            }
-        }
-    }
+				return new NumerTelefonu();
+			}
+		}
+	}
 
-    struct Osoba
-    {
-        public string Imie { get; set; }
-        public Osoba(string imie) => Imie = imie;
-    }
+	struct Osoba
+	{
+		public string Imie { get; set; }
+		public Osoba(string imie) => Imie = imie;
+	}
 
-    struct NumerTelefonu
-    {
-        public int Numer { get; set; }
-        public NumerTelefonu(int num) => Numer = num;
+	struct NumerTelefonu
+	{
+		public int Numer { get; set; }
+		public NumerTelefonu(int num) => Numer = num;
 
-        public override string ToString()
-        {
-            return $"Numeros {this.Numer}";
-        }
-    }
+		public override string ToString()
+		{
+			return $"Numeros {this.Numer}";
+		}
+	}
 }
