@@ -48,8 +48,8 @@
     <Compile Include="Model\Enums\Gatunek.cs" />
     <Compile Include="Model\Interfejsy_Kontrawariantne\Interfaces\IAnimal.cs" />
     <Compile Include="Model\Interfaces\IWrapper.cs" />
-    <Compile Include="Model\Interfas_Kowariantny\Interfaces\IRetrieveWrapper.cs" />
-    <Compile Include="Model\Interfas_Kowariantny\Interfaces\IStoreWrapper.cs" />
+    <Compile Include="Model\Interfejsy_Kowariantne\Interfaces\IRetrieveWrapper.cs" />
+    <Compile Include="Model\Interfejsy_Kowariantne\Interfaces\IStoreWrapper.cs" />
     <Compile Include="Model\Interfejsy_Kontrawariantne\Interfaces\IComparer.cs" />
     <Compile Include="Model\Interfejsy_Kontrawariantne\ObjectComparer.cs" />
     <Compile Include="Model\PrintableCollection.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="Model\Interfaces\IScaleable.cs" />
     <Compile Include="Model\Kon.cs" />
     <Compile Include="Model\Okrag.cs" />
-    <Compile Include="Model\Interfas_Kowariantny\SafeWrapper.cs" />
+    <Compile Include="Model\Interfejsy_Kowariantne\SafeWrapper.cs" />
     <Compile Include="Model\Wrapper.cs" />
     <Compile Include="Model\Interfejsy_Kontrawariantne\Classes\Malpa.cs" />
     <Compile Include="Program.cs" />
