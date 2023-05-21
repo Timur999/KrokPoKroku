@@ -7,7 +7,7 @@
     <ProjectGuid>{BFFB7420-5CD0-445A-A209-9C16A7F1B83F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Chapter_19_Testy</RootNamespace>
-    <AssemblyName>Chapter_19_Testy</AssemblyName>
+    <AssemblyName>Chapter 19 Testy</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,6 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chapter 19 Iterator\Chapter 19 Iterator.csproj">
+      <Project>{031a08b0-1d1f-488d-bb01-425189144766}</Project>
+      <Name>Chapter 19 Iterator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chapter 19 Wyliczane Kolekcje\Chapter 19 Wyliczane Kolekcje.csproj">
+      <Project>{1533fc11-5d6f-475f-9fb9-eb26b943fde3}</Project>
+      <Name>Chapter 19 Wyliczane Kolekcje</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
