@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Chapter_19_Iterator
+namespace Chapter_19_Wyliczane_Kolekcje
 {
     public class Tree<TItem> : IEnumerable<TItem> where TItem : IComparable<TItem>
     {
@@ -51,23 +51,7 @@ namespace Chapter_19_Iterator
         // Zwraca moduł wyliczeniowy umożliwiający iteracja po elementach kolekcji 
         IEnumerator<TItem> IEnumerable<TItem>.GetEnumerator()
         {
-            if (this.LeftTree != null)
-            {
-                foreach (var item in this.LeftTree)
-                {
-                    yield return item;
-                }
-            }
-
-            yield return this.NodeData;
-
-            if(this.RightTree != null)
-            {
-                foreach (var item in this.RightTree)
-                {
-                    yield return item;
-                }
-            }
+            return new TreeEnumerator<TItem>(this);
         }
 
         // Analogicznie jak IEnumerator, generyczny IEnumerable<T> dziedziczy po swoim starszym bracie IEnumerable dlatego nalezy dodac implementacje obydwuch interfejsow. 
@@ -77,5 +61,3 @@ namespace Chapter_19_Iterator
         }
     }
 }
-
-

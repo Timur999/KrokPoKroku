@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73196FDA-6BEB-4376-916A-FBA43B373FB3}</ProjectGuid>
+    <ProjectGuid>{1533FC11-5D6F-475F-9FB9-EB26B943FDE3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Chapter_19_Iterator</RootNamespace>
-    <AssemblyName>Chapter 19 Iterator</AssemblyName>
+    <RootNamespace>Chapter_19_Wyliczane_Kolekcje</RootNamespace>
+    <AssemblyName>Chapter 19 Wyliczane Kolekcje</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,10 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProstaKolekcja.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

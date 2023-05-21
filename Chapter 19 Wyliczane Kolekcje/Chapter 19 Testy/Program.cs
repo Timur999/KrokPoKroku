@@ -1,8 +1,8 @@
 ﻿using System;
 using iterator = Chapter_19_Iterator;
-using modulWyliczeniowy = Chapter_19_Wyliczanie_Kolekcji.Model;
+using modulWyliczeniowy = Chapter_19_Wyliczane_Kolekcje;
 
-namespace Chapter_19_Iterator_Test
+namespace Chapter_19_Testy
 {
     internal class Program
     {

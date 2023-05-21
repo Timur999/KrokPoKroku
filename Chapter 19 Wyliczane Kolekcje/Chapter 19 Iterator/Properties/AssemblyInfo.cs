@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Chapter 19 Iterator Test")]
+[assembly: AssemblyTitle("Chapter 19 Iterator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Chapter 19 Iterator Test")]
+[assembly: AssemblyProduct("Chapter 19 Iterator")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1b7b5846-60c9-408e-8fe9-c079b1f668d2")]
+[assembly: Guid("031a08b0-1d1f-488d-bb01-425189144766")]
 
 // Version information for an assembly consists of the following four values:
 //

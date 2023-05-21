@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Chapter_19_Wyliczanie_Kolekcji.Model
+namespace Chapter_19_Wyliczane_Kolekcje
 {
     internal class TreeEnumerator<TItem> : IEnumerator<TItem> where TItem : IComparable<TItem>
     {

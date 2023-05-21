@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B7B5846-60C9-408E-8FE9-C079B1F668D2}</ProjectGuid>
+    <ProjectGuid>{BFFB7420-5CD0-445A-A209-9C16A7F1B83F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Chapter_19_Iterator_Test</RootNamespace>
-    <AssemblyName>Chapter 19 Iterator Test</AssemblyName>
+    <RootNamespace>Chapter_19_Testy</RootNamespace>
+    <AssemblyName>Chapter_19_Testy</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,12 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chapter 19 Iterator\Chapter 19 Iterator.csproj">
-      <Project>{73196fda-6beb-4376-916a-fba43b373fb3}</Project>
-      <Name>Chapter 19 Iterator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

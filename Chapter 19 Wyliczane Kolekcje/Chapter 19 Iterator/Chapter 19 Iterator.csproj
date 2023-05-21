@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7ADE1057-6866-4917-8B0D-47C2B8AB7A22}</ProjectGuid>
+    <ProjectGuid>{031A08B0-1D1F-488D-BB01-425189144766}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Chapter_19_Wyliczanie_Kolekcji</RootNamespace>
-    <AssemblyName>Chapter 19 Wyliczanie Kolekcji</AssemblyName>
+    <RootNamespace>Chapter_19_Iterator</RootNamespace>
+    <AssemblyName>Chapter_19_Iterator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tree.cs" />
-    <Compile Include="TreeEnumerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Chapter 19 Wyliczanie Kolekcji")]
+[assembly: AssemblyTitle("Chapter 19 Wyliczane Kolekcje")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Chapter 19 Wyliczanie Kolekcji")]
+[assembly: AssemblyProduct("Chapter 19 Wyliczane Kolekcje")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7ade1057-6866-4917-8b0d-47c2b8ab7a22")]
+[assembly: Guid("1533fc11-5d6f-475f-9fb9-eb26b943fde3")]
 
 // Version information for an assembly consists of the following four values:
 //

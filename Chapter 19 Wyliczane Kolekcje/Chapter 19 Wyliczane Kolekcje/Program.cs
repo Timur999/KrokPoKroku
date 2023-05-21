@@ -1,8 +1,8 @@
-﻿namespace Chapter_19_Wyliczanie_Kolekcji
+﻿namespace Chapter_19_Wyliczane_Kolekcje
 {
     /* W tym rozdziale zostanią opisana następujące zagadnienia:
-     * - Zasada działania pętli foreach,
      * - Tworzenie własnej kolekcji wyliczanej,
+     * - Zasada działania pętli foreach,
      * - Domyslnej wartości 'default' dla generycznych parametrów typu.
      */
     internal class Program
