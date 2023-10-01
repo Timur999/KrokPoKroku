@@ -30,6 +30,12 @@ namespace Chapter_19_Iterator
             }
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+
         // Alternatywny sposób iterowania po wlasnej kolekcji za pomocą pętli foreach.        
         public IEnumerable<T> Reverse //Note: Wlasciwość zwraca typ IEnumerable<T>, a nie IEnumerator<T>.
         {
@@ -41,11 +47,6 @@ namespace Chapter_19_Iterator
                 }
             }
             // Przyklad uzycia: foreach (var band in musicBands.Reverse)
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        }       
     }
 }

@@ -8,9 +8,22 @@ namespace Chapter_19_Testy
     {
         static void Main(string[] args)
         {
-            TestyWyliczanejKolekcji();
+/*            TestyWyliczanejKolekcji();
             TestyProstegoIteratora();
-            TestyRekurencyjnegoIteratora();
+            TestyRekurencyjnegoIteratora();*/
+
+
+            MojaLista<string> mojaLista = new MojaLista<string>();
+            mojaLista.DodajElement("elos");
+            mojaLista.DodajElement("elo2");
+            mojaLista.DodajElement("elo3");
+            mojaLista.DodajElement("elo4");
+
+            foreach (string item in mojaLista)
+            {
+                Console.Write(item + ", ");
+            }
+            Console.ReadKey();
         }
 
         private static void TestyWyliczanejKolekcji()
@@ -25,12 +38,12 @@ namespace Chapter_19_Testy
 
             foreach (int item in drzewoBinarne)
             {
-                Console.WriteLine(item);
+                Console.Write(item + ", "); // -5, 1, 5, 8, 10, 11,
             }
 
             foreach (int item in drzewoBinarne)
             {
-                Console.WriteLine(item);
+                Console.Write(item + ", "); // -5, 1, 5, 8, 10, 11,
             }
 
             Console.ReadKey();
@@ -42,12 +55,12 @@ namespace Chapter_19_Testy
 
             foreach (var band in musicBands)
             {
-                Console.WriteLine(band);
+                Console.WriteLine(band); // TangerineDream, Prodigy, AC/DC
             }
 
             foreach (var band in musicBands.Reverse)
             {
-                Console.WriteLine(band);
+                Console.WriteLine(band); // AC/DC, Prodigy, TangerineDream
             }
 
             Console.ReadKey();

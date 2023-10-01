@@ -34,15 +34,18 @@ namespace Chapter_19_Wyliczane_Kolekcje
             }
         }
 
-        // Generyczny IEnumerator<T> dziedziczy po swoim starszym bracie IEnumerator dlatego nalezy dodac implementacje obydwóch interfejsow. 
-        // IEnumerator<T> posiada tylko właściwość Current z parametrem typu.
+        /* Generyczny IEnumerator<T> dziedziczy po swoim starszym bracie IEnumerator (przed .NET 2.0) dlatego nalezy dodac implementacje obydwu interfejsow. 
+         * Interfejs IEnumerator<T> zawiera tylko właściwość Current zwracający parametr typu. (T Current)
+        */
         object IEnumerator.Current => throw new NotImplementedException();
 
 
         // Zadaniem metody 'MoveNext' jest sprawdzenie czy istnieje kolejny element w kolekcji oraz ustawienie Currenta.
         public bool MoveNext()
         {
-            // Na początku inicjiujemy kolekcje (mozna by było to przenieść do konstruktora)
+            // Na początku inicjujemy kolekcje (mozna by było to przenieść do konstruktora)
+            // odp. W tym przypadku gdy uzywamy Kolejki/Queue nie mozemy przenieść tego do konstruktora
+            // bo za 2 razem uzycia pętli foreach Kolejka byłąby juz pusta, gdyż uzywana jest metoda Dequeue() do ustaawiania Currenta.
             if (this.enumerableData == null)
             {
                 this.enumerableData = new Queue<TItem>();
