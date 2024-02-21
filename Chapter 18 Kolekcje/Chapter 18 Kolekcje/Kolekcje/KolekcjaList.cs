@@ -21,9 +21,21 @@ namespace Chapter_18_Kolekcje.Kolekcje
              * Jeżeli w pewnym momencie elementów bedzie więcej, wtedy kolekcja zostanie automatycznie rozszerzona.
              */
 
+            Dodawanie();
             Pojemność();
             Usuwanie();
             Iteracja();
+        }
+
+        static void Dodawanie()
+        {
+            List<int> lista = new List<int>();
+            lista.Add(1);
+            lista.Add(2);
+            lista[0] = 11; // zamieni wartosc pierwszego elementu listy.
+
+            List<string> innaLista = new List<string>() { "A", "B" };
+            innaLista[3] = "C"; // nie wolno tak dodawac do listy. Tak mozna do dictionary.
         }
 
         static void Pojemność()

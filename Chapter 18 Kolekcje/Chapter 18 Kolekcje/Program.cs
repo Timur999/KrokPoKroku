@@ -55,9 +55,10 @@ namespace Chapter_18_Kolekcje
         static void Tablice()
         {
             /* - Rozmiar tablicy jest stały. Jeżeli chcemy zmienic rozmiar tablicy, tworzymy nową i kopiujemy wszystkie elementy ze starej tablicy
+             * a następnie we wszystkich miejscach gdzie była uzywana stara tablica zmienić odwołania do nowej.
              * - Dostep do danych - tylko za pomocą indeksu całkowitego w nawiasach kwadratowych (tzw. notacja tablicowa)
-             * - Usuwananie elementu, musimy cofnąć o 1 pozycje wszystkie elementy.
-             * - Dodawanie elementu, musimy przesunąć wszystkie elementy o 1.
+             * - Usuwananie elementu, musimy cofnąć o 1 pozycje wszystkie elementy. (ale to nie załatwi całkowicie sprawy bo na koncy tabeli zostana 2 takie same elementy.)
+             * - Dodawanie elementu, musimy przesunąć wszystkie elementy o 1. (a jesli tablica była pełna to tracimy ostatni element.)
              */
         }
 
